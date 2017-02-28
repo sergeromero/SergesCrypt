@@ -4,8 +4,7 @@ var express = require('express');
 var router = express.Router();
 
 router.get('/', (req, res) => {
-    res.type('text/plain');
-    res.send('This is home for The Crypt');
+    res.render('home');
 });
 
 module.exports = router;
