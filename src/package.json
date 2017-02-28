@@ -1,0 +1,19 @@
+{
+  "name": "thecrypt",
+  "version": "1.0.0",
+  "description": "A text based game for practicing building a web site using NodeJS and ExpressJS.",
+  "main": "app.js",
+  "scripts": {
+    "test": "node app"
+  },
+  "author": "Sergio Romero",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.14.1",
+    "express-handlebars": "^3.0.0"
+  },
+  "devDependencies": {
+    "jasmine": "^2.5.3",
+    "jshint": "^2.9.4"
+  }
+}
