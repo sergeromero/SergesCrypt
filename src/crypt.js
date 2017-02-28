@@ -1,7 +1,5 @@
 var express = require('express');
 
-var app = express();
-
 var handlebars = require('express-handlebars').create({
     defaultLayout: 'main',
         helpers: {
@@ -14,12 +12,14 @@ var handlebars = require('express-handlebars').create({
         }
 });
 
+var app = express();
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
-
 app.set('port', process.env.PORT || 3033);
 
 var index = require('./routes/index');
+
+app.use(express.static(`${__dirname}/resources`));
 
 app.use('/', index);
 
