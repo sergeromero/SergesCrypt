@@ -4,7 +4,7 @@
   "description": "A text based game for practicing building a web site using NodeJS and ExpressJS.",
   "main": "crypt.js",
   "scripts": {
-    "test": "node app"
+    "start": "node crypt"
   },
   "author": "Sergio Romero",
   "license": "ISC",
