@@ -2,7 +2,7 @@
   "name": "thecrypt",
   "version": "1.0.0",
   "description": "A text based game for practicing building a web site using NodeJS and ExpressJS.",
-  "main": "app.js",
+  "main": "crypt.js",
   "scripts": {
     "test": "node app"
   },
