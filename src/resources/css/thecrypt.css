@@ -16,7 +16,11 @@ body {
 }
 
 h1 {
-  background: url("../img/rugged.jpg");
+  background: url("../img/rugged.jpg") no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
   color: lightyellow;
   text-align: center;
   font-family: fantasy;
@@ -32,7 +36,11 @@ h1 {
 }
 
 #player, #place {
-  background: url("../img/rugged.jpg");
+  background: url("../img/rugged.jpg") no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
   color: lightyellow;
   display:inline-block;
   width:40%;
