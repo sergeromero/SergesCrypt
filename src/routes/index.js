@@ -3,25 +3,23 @@
 var express = require('express');
 var router = express.Router();
 
-var playerService = require('../app/player/playerService');
-var placeService = require('../app/place/placeService');
+var gameDal = require('../app/DAL/gameRepository');
 
 router.use('/', (req, res, next) => {
     if(!res.locals.gameContext) res.locals.gameContext = {};
 
-    playerService.getPlayer().then(player => {
-        res.locals.gameContext.player = player;
+    gameDal.getGame(0).then(game => {
+        res.locals.gameContext.player = game.player;
+        res.locals.gameContext.place = game.place;
+        req.gameTitle = game.title;
+        next();
+    }).catch(err => {
+        next(err);
     });
-
-    placeService.getPlace().then(place => {
-        res.locals.gameContext.place = place;
-    });
-    
-    next();
 });
 
 router.get('/', (req, res) => {
-    res.render('home');
+    res.render('home', { "title": req.gameTitle });
 });
 
 module.exports = router;
