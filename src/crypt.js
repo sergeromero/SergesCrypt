@@ -20,6 +20,7 @@ app.set('port', process.env.PORT || 3033);
 var index = require('./routes/index');
 
 app.use(express.static(`${__dirname}/resources`));
+app.use(express.static(`${__dirname}/app/Presentation`));
 
 app.use('/', index);
 

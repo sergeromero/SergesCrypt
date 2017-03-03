@@ -24,7 +24,7 @@ var games = [
 var getGame = (gameId) => {
     return new Promise((resolve, reject) => {
         resolve(games[gameId]);
-    })
+    });
 };
 
 module.exports.getGame = getGame;

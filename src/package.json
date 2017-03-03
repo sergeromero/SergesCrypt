@@ -5,13 +5,19 @@
   "main": "crypt.js",
   "scripts": {
     "start": "node crypt",
-    "test": "jasmine"
+    "test": "jasmine",
+    "lint": "for /r %f in (app/*.js) do jshint %f",
+    "lint1": "jshint routes\\index.js"
   },
   "author": "Sergio Romero",
   "license": "ISC",
   "dependencies": {
     "express": "^4.14.1",
     "express-handlebars": "^3.0.0"
+  },
+  "jshintConfig": {
+    "node": true,
+    "esversion": 6
   },
   "devDependencies": {
     "jasmine": "^2.5.3",
