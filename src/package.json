@@ -6,8 +6,10 @@
   "scripts": {
     "start": "node crypt",
     "test": "jasmine",
-    "lint": "for /r %f in (app/*.js) do jshint %f",
-    "lint1": "jshint routes\\index.js"
+    "lintAppFile": "jshint crypt.js",
+    "lintRoutes": "cd routes&&for /r %f in (*.js) do jshint %f",
+    "lintAppFolder": "cd app&&for /r %f in (*.js) do jshint %f",
+    "lint": "npm run lintAppFolder && npm run lintRoutes && npm run lintAppFile"
   },
   "author": "Sergio Romero",
   "license": "ISC",

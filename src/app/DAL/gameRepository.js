@@ -3,6 +3,8 @@
 var games = [
     {
         "title": "The Dark House",
+        "backgroundImage": "house",
+        "tilesBackground": "fadedGreenWall",
         "player": {
             "name": "Serge",
             "health": 180,

@@ -12,6 +12,8 @@ router.use('/', (req, res, next) => {
         res.locals.gameContext.player = game.player;
         res.locals.gameContext.place = game.place;
         req.gameTitle = game.title;
+        req.backgroundImage = game.backgroundImage;
+        req.tilesBackground = game.tilesBackground;
         next();
     }).catch(err => {
         next(err);
@@ -19,7 +21,7 @@ router.use('/', (req, res, next) => {
 });
 
 router.get('/', (req, res) => {
-    res.render('home', { "title": req.gameTitle });
+    res.render('home', { "title": req.gameTitle, "backgroundImage": req.backgroundImage, "tilesBackground": req.tilesBackground });
 });
 
 module.exports = router;

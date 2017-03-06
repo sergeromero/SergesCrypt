@@ -1,10 +1,11 @@
-html{
-    background: url("../img/house.jpg") no-repeat center center fixed;
+html{    
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-color: black;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
-    background-size: cover;
-    background-color: black;
 }
 
 body {
@@ -15,8 +16,7 @@ body {
   padding: 0 20px 50%;
 }
 
-h1 {
-  background: url("../img/rugged.jpg") no-repeat;
+h1 {  
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -36,7 +36,6 @@ h1 {
 }
 
 #player, #place {
-  background: url("../img/rugged.jpg") no-repeat;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -99,7 +98,6 @@ li {
   color: lightyellow;
   font-size:120%;
   text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.8);
-  background: url("../img/rugged.jpg");
   text-align: center;
   margin:1em;
   padding: 0;
