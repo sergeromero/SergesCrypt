@@ -4,12 +4,15 @@
   "description": "A text based game for practicing building a web site using NodeJS and ExpressJS.",
   "main": "crypt.js",
   "scripts": {
+    "hbsManualCopy": "copy node_modules\\handlebars\\dist\\handlebars.min.js resources\\js\\handlebars.min.js",
     "start": "node crypt",
     "test": "jasmine",
     "lintAppFile": "jshint crypt.js",
     "lintRoutes": "cd routes&&for /r %f in (*.js) do jshint %f",
     "lintAppFolder": "cd app&&for /r %f in (*.js) do jshint %f",
-    "lint": "npm run lintAppFolder && npm run lintRoutes && npm run lintAppFile"
+    "lint": "npm run lintAppFolder && npm run lintRoutes && npm run lintAppFile",
+
+    "postinstall": "npm run hbsManualCopy"
   },
   "author": "Sergio Romero",
   "license": "ISC",
