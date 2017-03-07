@@ -15,18 +15,16 @@ var theCrypt;
 				var url = "http://localhost:3033/game/555";
 
 				xhr.addEventListener("load", () => {
-					console.log(xhr.responseText);
-
-					var mapData = xhr.responseText;
-					var start = theCrypt.Map.build(JSON.parse(mapData));
+					var gameData = JSON.parse(xhr.responseText);
+					var start = theCrypt.Map.build(gameData);
 				
-					player = new theCrypt.Model.Player(playerName, 100);
-					player.addItem("The Sword of Doom");
+					player = new theCrypt.Model.Player(gameData.player.name, gameData.player.health);
+					gameData.player.items.forEach(player.addItem);
 					player.setPlace(start);
 					
 					inPlay = true;
 
-					//render();
+					render();
 				});
 				xhr.open("GET", url);
 				xhr.send();
@@ -46,8 +44,8 @@ var theCrypt;
 				console.clear();
 				
 				if(inPlay){
-					playerView = theCrypt.Views.player;
-					placeView = theCrypt.Views.place;
+					const playerView = theCrypt.Views.player;
+					const placeView = theCrypt.Views.place;
 					playerView.render(player);
 					placeView.render(player.getPlace());
 				}

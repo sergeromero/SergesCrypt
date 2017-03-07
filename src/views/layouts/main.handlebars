@@ -7,22 +7,27 @@
         <script src="js/jquery-3.1.1.min.js"></script>
 
         <script src="/helpers/map.js"></script>
+
         <script src="/model/place.js"></script>
         <script src="/model/player.js"></script>
+
+        <script src="/views/player.js"></script>
+        <script src="/views/place.js"></script>
+
         <script src="/game/gameController.js"></script>
         <script src="/game/commandTranslator.js"></script>
         <script src="/index.js"></script>
 
-        <!-- Templates for the Handlebars Client Side Views -->
-		<script type="text/x-template" id="itemTemplate">
-			<li>\{{item}}</li>
-		</script>
-		  
+        <!-- Templates for the Handlebars Client Side Views -->		  
 		<script type="text/x-template" id="playerTemplate">
 			<h3>\{{name}}</h3>
 			<p>\{{health}}</p>
 			  
-			<ol id="playerItems"></ol>
+			<ol id="playerItems">
+                \{{#each items}}
+                    <li>\{{item}}</li>
+                \{{/each}}
+            </ol>
 		</script>
 		  
 		<script type="text/x-template" id="placeTemplate">
@@ -31,12 +36,20 @@
 			  
 			<div class="placePanel">
 				<h4>Items</h4>
-				<ol id="placeItems"></ol>
+				<ol id="placeItems">
+                    \{{#each items}}
+                        <li>\{{item}}</li>
+                    \{{/each}}
+                </ol>
 			</div>
 			  
 			<div class="placePanel">
 				<h4>Exits</h4>
-				<ol id="placeExits"></ol>
+				<ol id="placeExits">
+                    \{{#each exits}}
+                        <li>\{{exit}}</li>
+                    \{{/each}}
+                </ol>
 			</div>
 		</script>
 		  
