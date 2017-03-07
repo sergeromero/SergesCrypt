@@ -10,16 +10,26 @@ var theCrypt;
 			var inPlay = false;
 			
 			var init = function(mapData, playerName){
-                //TODO: Make call to back end to get mapData.
-				var start = theCrypt.Map.build(mapData);
+				var xhr = new XMLHttpRequest();
+				//http://localhost:3033/game/:gameId
+				var url = "http://localhost:3033/game/555";
+
+				xhr.addEventListener("load", () => {
+					console.log(xhr.responseText);
+
+					var mapData = xhr.responseText;
+					var start = theCrypt.Map.build(JSON.parse(mapData));
 				
-				player = new theCrypt.Model.Player(playerName, 100);
-				player.addItem("The Sword of Doom");
-				player.setPlace(start);
-				
-				inPlay = true;
-				
-				render();
+					player = new theCrypt.Model.Player(playerName, 100);
+					player.addItem("The Sword of Doom");
+					player.setPlace(start);
+					
+					inPlay = true;
+
+					//render();
+				});
+				xhr.open("GET", url);
+				xhr.send();
 			};
 			
 			var checkGameStatus = function(){
@@ -143,6 +153,6 @@ var theCrypt;
 			};
 		};
 		
-		theCrypt.Controllers.game = game();
-	})(theCrypt.Controllers || (theCrypt.Controllers = {}));
+		this.game = game();
+	}).apply(theCrypt.Controllers || (theCrypt.Controllers = {}));
 })(theCrypt || (theCrypt = {}));

@@ -18,11 +18,13 @@ app.set('view engine', 'handlebars');
 app.set('port', process.env.PORT || 3033);
 
 var index = require('./routes/index');
+var gameService = require('./routes/gameService');
 
 app.use(express.static(`${__dirname}/resources`));
 app.use(express.static(`${__dirname}/app/Presentation`));
 
 app.use('/', index);
+app.use('/game', gameService);
 
 app.use((req, res) => {
     res.status(404);

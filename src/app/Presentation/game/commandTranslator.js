@@ -55,6 +55,6 @@ var theCrypt;
 			};
 		};
 		
-		theCrypt.Controllers.commandTranslator = commandTranslator();
-	})(theCrypt.Controllers || (theCrypt.Controllers = {}));
+		this.commandTranslator = commandTranslator();
+	}).apply(theCrypt.Controllers || (theCrypt.Controllers = {}));
 })(theCrypt || (theCrypt = {}));
