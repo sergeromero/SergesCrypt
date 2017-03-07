@@ -2,7 +2,7 @@
 var theCrypt;
 (function(theCrypt){
 	var Views;
-	(function(Views){
+	(function(){
 		"use strict";
 		
 		var player = function(){

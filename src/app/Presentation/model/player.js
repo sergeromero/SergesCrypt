@@ -10,15 +10,22 @@ var theCrypt;
 			var place = null;
 				
 			this.addItem = function(item){
+				if(typeof item === 'string') {
+					item = { "item": item };
+				}
 				items.push(item);
 			};
 			
 			this.hasItem = function(item){
-				return items.indexOf(item) !== -1;
+				return getItemIndexBy(item) !== -1;
 			};
+
+			var getItemIndexBy = (value) => {
+				return items.map((e) => { return e.item; }).indexOf(value);
+			}
 			
 			this.removeItem = function(item){
-				var itemIndex = items.indexOf(item);
+				var itemIndex = getItemIndexBy(item);
 				if(itemIndex !== -1){
 					items.splice(itemIndex, 1);
 				}
