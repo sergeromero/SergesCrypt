@@ -22,7 +22,7 @@ var theCrypt;
 
 			var getItemIndexBy = (value) => {
 				return items.map((e) => { return e.item; }).indexOf(value);
-			}
+			};
 			
 			this.removeItem = function(item){
 				var itemIndex = getItemIndexBy(item);
