@@ -9,5 +9,5 @@ $(document).ready(() => {
 	var commandButton = document.getElementById("btnCommand");
 	commandButton.addEventListener("click", translator.doAction);
 	var mapData = {};
-	game.init(mapData, "Serge");
+	game.init();
 });

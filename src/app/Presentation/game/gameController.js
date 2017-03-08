@@ -9,7 +9,7 @@ var theCrypt;
 			var player;
 			var inPlay = false;
 			
-			var init = function(mapData, playerName){
+			var init = function(){
 				var xhr = new XMLHttpRequest();
 				//http://localhost:3033/game/:gameId
 				var url = "http://localhost:3033/game/555";
@@ -66,7 +66,7 @@ var theCrypt;
 						render();
 					}
 					else{
-						renderMessage("There are no items left in " + place.getData().title);
+						renderMessage(`There are no items left in ${place.getData().title}`);
 					}
 				}
 				else{
@@ -120,7 +120,7 @@ var theCrypt;
 					}
 					
 					if(!player.hasItem(item)){
-						renderMessage("You do not have " + item);
+						renderMessage(`You do not have ${item}`);
 						return "";
 					}
 					
@@ -134,6 +134,7 @@ var theCrypt;
 					
 					if(challenge.itemConsumed){
 						player.removeItem(item);
+						theCrypt.Views.player.render(player);
 					}
 				}
 				else{
