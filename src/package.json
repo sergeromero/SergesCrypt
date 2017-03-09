@@ -11,9 +11,7 @@
     "lintRoutes": "cd routes&&for /r %f in (*.js) do jshint %f",
     "lintAppFolder": "cd app&&for /r %f in (*.js) do jshint %f",
     "lint": "npm run lintAppFolder && npm run lintRoutes && npm run lintAppFile",
-
     "postinstall": "npm run hbsManualCopy",
-
     "unit": "npm run lint && npm test"
   },
   "author": "Sergio Romero",

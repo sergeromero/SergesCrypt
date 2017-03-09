@@ -1,5 +1,4 @@
 {
-  
   "spec_files": [
     "**/**/app/**/*[sS]pec.js",
     "**/**/routes/**/*[sS]pec.js",

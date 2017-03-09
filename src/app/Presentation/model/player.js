@@ -61,3 +61,5 @@ var theCrypt;
 		this.Player = Player;
 	}).apply(Model = theCrypt.Model || (theCrypt.Model = {}));
 })(theCrypt || (theCrypt = {}));
+
+module.exports = theCrypt;
