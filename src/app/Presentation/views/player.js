@@ -21,3 +21,5 @@ var theCrypt;
 		this.player = player();
 	}).apply(theCrypt.Views || (theCrypt.Views = {}));
 })(theCrypt || (theCrypt = {}));
+
+module.exports = theCrypt;

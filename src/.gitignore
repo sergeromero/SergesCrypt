@@ -10,5 +10,8 @@ node_modules
 #The handlebars.min.js file gets copied in the postinstall script
 handlebars.min.js
 
+#Making sure the coverage folder is not added
+coverage/
+
 #Temp files for experimenting how it looks
 *old.*

@@ -23,3 +23,5 @@ var theCrypt;
 		this.message = message();
 	}).apply(theCrypt.Views || (theCrypt.Views = {}));
 })(theCrypt || (theCrypt = {}));
+
+module.exports = theCrypt;

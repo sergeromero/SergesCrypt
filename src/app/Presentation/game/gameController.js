@@ -155,3 +155,5 @@ var theCrypt;
 		this.game = game();
 	}).apply(theCrypt.Controllers || (theCrypt.Controllers = {}));
 })(theCrypt || (theCrypt = {}));
+
+module.exports = theCrypt;

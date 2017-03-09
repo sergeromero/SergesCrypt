@@ -30,3 +30,5 @@ var theCrypt;
         this.place = place();
 	}).apply(theCrypt.Views || (theCrypt.Views = {}));
 })(theCrypt || (theCrypt = {}));
+
+module.exports = theCrypt;

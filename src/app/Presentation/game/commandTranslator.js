@@ -58,3 +58,5 @@ var theCrypt;
 		this.commandTranslator = commandTranslator();
 	}).apply(theCrypt.Controllers || (theCrypt.Controllers = {}));
 })(theCrypt || (theCrypt = {}));
+
+module.exports = theCrypt;

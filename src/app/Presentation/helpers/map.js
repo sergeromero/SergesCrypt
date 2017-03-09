@@ -37,3 +37,5 @@ var theCrypt;
 		};
 	}).apply(theCrypt.Map || (theCrypt.Map = {}));
 })(theCrypt || (theCrypt = {}));
+
+module.exports = theCrypt;
