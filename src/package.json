@@ -5,20 +5,23 @@
   "main": "crypt.js",
   "scripts": {
     "hbsManualCopy": "copy node_modules\\handlebars\\dist\\handlebars.min.js resources\\js\\handlebars.min.js",
-    "start": "node crypt",
+    "createDB": "node ..\\db\\dbScripts.js",
+    "postinstall": "npm run hbsManualCopy",
     "lintAppFile": "jshint crypt.js",
     "lintRoutes": "cd routes&&for /r %f in (*.js) do jshint %f",
     "lintAppFolder": "cd app&&for /r %f in (*.js) do jshint %f",
     "lint": "npm run lintAppFolder && npm run lintRoutes && npm run lintAppFile",
-    "postinstall": "npm run hbsManualCopy",
     "test": "istanbul cover node_modules\\jasmine\\bin\\jasmine.js",
-    "unit": "npm run lint && npm test"
+    "unit": "npm run lint && npm test",
+    "buildDev": "npm run unit",
+    "start": "node crypt"
   },
   "author": "Sergio Romero",
   "license": "ISC",
   "dependencies": {
     "express": "^4.14.1",
-    "express-handlebars": "^3.0.0"
+    "express-handlebars": "^3.0.0",
+    "sqlite3": "^3.1.8"
   },
   "jshintConfig": {
     "node": true,
