@@ -21,7 +21,7 @@ router.use('/', (req, res, next) => {
 });
 
 router.get('/', (req, res) => {
-    res.render('home', { "title": req.gameTitle, "backgroundImage": req.backgroundImage, "tilesBackground": req.tilesBackground });
+    res.render('adventure', { "title": req.gameTitle, "backgroundImage": req.backgroundImage, "tilesBackground": req.tilesBackground });
 });
 
 module.exports = router;
