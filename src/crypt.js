@@ -17,12 +17,14 @@ app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
 app.set('port', process.env.PORT || 3033);
 
+var home = require('./routes/home');
 var adventure = require('./routes/adventure');
 var gameService = require('./routes/gameService');
 
 app.use(express.static(`${__dirname}/resources`));
 app.use(express.static(`${__dirname}/app/Presentation`));
 
+app.use('/', home);
 app.use('/adventure', adventure);
 app.use('/game', gameService);
 
