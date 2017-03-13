@@ -4,7 +4,7 @@ html{
   padding: 0px;
 }
 
-#adventure{    
+#container{    
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
@@ -43,7 +43,7 @@ h1 {
   padding: 2em 1em 1em;
 }
 
-#player, #place {
+#player, #place, #adventures, #selected-adventure {
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -62,7 +62,7 @@ h1 {
   text-align:center;
 }
 
-#player p, #place p {
+#player p, #place p, #adventures p, #selected-adventure p {
   background: rgba(0, 0, 0, 0.4);
   padding:1em 0;
   margin:0 0 1em;

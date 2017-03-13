@@ -56,7 +56,25 @@
 		  
 		<script type="text/x-template" id="messageTemplate">
 			<p>*** \{{message}} ***</p>
-		</script>        
+		</script>
+
+        <script type="text/x-template" id="adventureListTemplate">
+            <h3>Choose your adventure. If you dare.</h3>
+            <ol id="adventureList">
+                \{{#each adventures}}
+                    <li><input type="radio" name="adventure" value="\{{adventure}}"></li>
+                \{{/each}}
+            </ol>        
+        </script>
+
+        <script type="text/x-template" id="selectedAdventureTemplate">
+            <h3>You have chosen \{{selectedAdventure}}</h3>
+            <p>\{{Description}}</p>
+            <br>
+            <div id="controls">
+                <button id="btnCommand">Enter ...</button>
+            </div>
+        </script>
     </head>
     <body>
         {{{body}}}
