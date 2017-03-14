@@ -18,11 +18,7 @@
         <script src="/game/gameController.js"></script>
         <script src="/game/commandTranslator.js"></script>
         <script src="/adventureInit.js"></script>
-
-        <script src="/views/adventures.js"></script>
-        <script src="adventurePicker/homeController.js"></script>
-        <script src="/homeInit.js"></script>
-
+        
         <!-- Templates for the Handlebars Client Side Views -->		  
 		<script type="text/x-template" id="playerTemplate">
 			<h3>\{{name}}</h3>
@@ -61,15 +57,6 @@
 		<script type="text/x-template" id="messageTemplate">
 			<p>*** \{{message}} ***</p>
 		</script>
-
-        <script type="text/x-template" id="adventureListTemplate">
-            <h3>Choose your adventure. If you dare.</h3>
-            <ol id="adventureList">
-                \{{#each adventures}}
-                    <li><input type="radio" name="adventure">\{{adventure}}</li>
-                \{{/each}}
-            </ol>        
-        </script>
 
         <script type="text/x-template" id="selectedAdventureTemplate">
             <h3>You have chosen \{{selectedAdventure}}</h3>
