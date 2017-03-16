@@ -30,6 +30,8 @@ router.get('/:adventureId', (req, res) => {
 
     var data = { "adventureDetails": adventures[req.params.adventureId] };
 
+    if(JSON.stringify(data) === JSON.stringify({})) throw ("Your adventure was not found.");
+
     res.json(data);
 });
 
