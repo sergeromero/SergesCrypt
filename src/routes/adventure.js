@@ -5,7 +5,7 @@ var router = express.Router();
 
 var gameDal = require('../app/DAL/gameRepository');
 
-router.use('/', (req, res, next) => {
+router.use('/:gameId', (req, res, next) => {
     if(!res.locals.gameContext) res.locals.gameContext = {};
 
     gameDal.getGame(0).then(game => {
@@ -20,7 +20,7 @@ router.use('/', (req, res, next) => {
     });
 });
 
-router.get('/', (req, res) => {
+router.get('/:gameId', (req, res) => {
     res.render('adventure', { "title": req.gameTitle, "backgroundImage": req.backgroundImage, "tilesBackground": req.tilesBackground });
 });
 

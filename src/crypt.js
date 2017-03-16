@@ -24,9 +24,9 @@ var gameService = require('./routes/gameService');
 app.use(express.static(`${__dirname}/resources`));
 app.use(express.static(`${__dirname}/app/Presentation`));
 
-app.use('/', home);
 app.use('/adventure', adventure);
 app.use('/game', gameService);
+app.use('/', home);
 
 app.use((req, res) => {
     res.status(404);
