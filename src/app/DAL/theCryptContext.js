@@ -34,29 +34,45 @@ var getFields = (fields) => {
     if(fields.length === 0) return "*";
 
     return fields.join(", ");
+};
+
+var getParsedFilters = (filters) => {
+    var parsedFilters = "";
+
+    if(filters.length !== 0){
+        var result = [];
+
+        filters.map((f) => {
+            var filter = [f.key, "?"].join(" = ");
+            result.push(filter);
+        });
+
+        parsedFilters = result.join(" AND ");
+    }
+    
+    return parsedFilters;
+};
+
+var getFilterValues = (filters) => {
+    var filterValues = [];
+
+    if(filters.length !== 0){
+        filters.map((f) => {
+            filterValues.push(f.value);
+        });
+    }
+
+    return filterValues;
 }
 
 exports.read = function(table, filters, ...fields){
-    var parsedFilters = "";
-    var filterValues = [];
-
     filters = cleanFilters(filters);
-    if(filters.length !== 0){
-        parsedFilters = "WHERE " + (function(){
-            var result = [];
-
-            filters.map((e) => {
-                var filter = [e.key, "?"].join(" = ");
-                result.push(filter);
-                filterValues.push(e.value);
-            });
-
-            return result.join(" AND ");
-        })();
-    }
+    var parsedFilters = getParsedFilters(filters);
+    var parsedFilters = parsedFilters !== "" ? `WHERE ${parsedFilters}` : ""; 
+    var filterValues = getFilterValues(filters);
 
     let sql = `SELECT ${getFields(fields)} FROM ${table} ${parsedFilters}`;
-    
+
     return connectDB().then(() => {
         return new Promise((resolve, reject) => {
             let results = [];

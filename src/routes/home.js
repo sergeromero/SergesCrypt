@@ -5,7 +5,7 @@ var router = express.Router();
 
 var repository = require('../app/DAL/gameRepository');
 
-router.get('/', (req, res) => {
+router.get('/', (req, res, next) => {
     repository.getAvailableAdventures().then(adventures => {
         var results = [];
 
@@ -22,7 +22,7 @@ router.get('/', (req, res) => {
     });
 });
 
-router.get('/:adventureId', (req, res) => {
+router.get('/:adventureId', (req, res, next) => {
     repository.getAdventureDetails(req.params.adventureId).then(adventure => {
         var data = { "adventureDetails": adventure };
 
