@@ -61,6 +61,8 @@ var games = [
     }
 ];
 
+var context = require('./theCryptContext');
+
 var getGame = (gameId) => {
     return new Promise((resolve, reject) => {
         resolve(games[gameId]);
@@ -68,3 +70,24 @@ var getGame = (gameId) => {
 };
 
 module.exports.getGame = getGame;
+
+module.exports.getAvailableAdventures = () => {
+    return new Promise((resolve, reject) => {
+        context.read("Adventures", undefined, "Title", "AdventureId").then(results => {
+            resolve(results);
+        }, err => {
+            reject(err);
+        });
+    });
+};
+
+module.exports.getAdventureDetails = (adventureId) => {
+    return new Promise((resolve, reject) => {
+        context.read("Adventures", [{ key: "AdventureId", value: adventureId}]).then(results => {
+            if(results.length === 0) throw `No adventure was found with id ${adventureId}`;
+            else resolve(results[0]);
+        }, err => {
+            reject(err);
+        });
+    });
+};

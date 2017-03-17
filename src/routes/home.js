@@ -3,36 +3,33 @@
 var express = require('express');
 var router = express.Router();
 
+var repository = require('../app/DAL/gameRepository');
+
 router.get('/', (req, res) => {
-    //TODO: Get these data from the DB.
-    var adventures = [];
-    adventures.push({adventure: "Awesome Adventure", adventureId: "0"});
-    adventures.push({adventure: "Alternate Adventure", adventureId: "1"});
-    adventures.push({adventure: "Scary Adventure", adventureId: "2"});
-    adventures.push({adventure: "Nice Adventure", adventureId: "3"});
-    adventures.push({adventure: "Terrifying Adventure", adventureId: "4"});
-    adventures.push({adventure: "Exciting Adventure", adventureId: "5"});
+    repository.getAvailableAdventures().then(adventures => {
+        var results = [];
 
-    //var data = JSON.parse(JSON.stringify(adventures));
-    var data = { "adventures": adventures.slice() };
+        adventures.forEach(adventure => {
+            results.push({"adventure": adventure.Title, "adventureId": adventure.AdventureId});            
+        });
 
-    res.render('home', data);
+        //var data = JSON.parse(JSON.stringify(results));
+        var data = { "adventures": results.slice() };
+        
+        res.render('home', data);
+    }).catch(err => {
+        next(err);
+    });
 });
 
 router.get('/:adventureId', (req, res) => {
-    var adventures = [];
-    adventures.push({adventure: "Awesome Adventure", description: "This is an Awesome Adventure", image: "cavern"});
-    adventures.push({adventure: "Alternate Adventure", description: "This is an Alternate Adventure", image: "forest"});
-    adventures.push({adventure: "Scary Adventure", description: "This is a Scary Adventure", image: "home"});
-    adventures.push({adventure: "Nice Adventure", description: "This is a Nice Adventure", image: "house"});
-    adventures.push({adventure: "Terrifying Adventure", description: "This is a Terrifying Adventure", image: "cavern"});
-    adventures.push({adventure: "Exciting Adventure", description: "This is an Exciting Adventure", image: "forest"});
+    repository.getAdventureDetails(req.params.adventureId).then(adventure => {
+        var data = { "adventureDetails": adventure };
 
-    var data = { "adventureDetails": adventures[req.params.adventureId] };
-
-    if(JSON.stringify(data) === JSON.stringify({})) throw ("Your adventure was not found.");
-
-    res.json(data);
+        res.json(data);
+    }).catch(err => {
+        next(err);
+    });
 });
 
 module.exports = router;
