@@ -5,6 +5,12 @@ var router = express.Router();
 
 var gameDal = require('../app/DAL/gameRepository');
 
+router.post('/new-adventure/:adventureId', (req, res, next) => {
+    console.log(`Starting a new adventure of id ${req.params.adventureId}`);
+    //TODO: Add call to business layer to create new game.
+    //Redirect to adventure/:gameid
+});
+
 router.use('/:gameId', (req, res, next) => {
     if(!res.locals.gameContext) res.locals.gameContext = {};
 

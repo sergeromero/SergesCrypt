@@ -19,8 +19,17 @@ var theCrypt;
 				xhr.send();
             };
 
+            var startNewAdventure = function(adventureId){
+                var xhr = new XMLHttpRequest();
+                var url = `http://localhost:3033/adventure/new-adventure/${adventureId}`;
+
+                xhr.open('POST', url);
+                xhr.send();
+            };
+
             return {
-                getAdventureDetails: getAdventureDetails
+                getAdventureDetails: getAdventureDetails,
+                startNewAdventure: startNewAdventure
             };
         };
 

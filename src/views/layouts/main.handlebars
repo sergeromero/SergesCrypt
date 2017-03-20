@@ -48,6 +48,7 @@
 		</script>
 
         <script type="text/x-template" id="newAdventureTemplate">
+            <input type="hidden" id="adventureId" name="adventureId" value="\{{adventureDetails.AdventureId}}">
             <h3>You have chosen \{{adventureDetails.Title}}</h3>
             <p>\{{adventureDetails.Description}}</p>
             <p><img src="/img/\{{adventureDetails.BackgroundFile}}.jpg" alt="\{{adventureDetails.Title}} Picture"></p>

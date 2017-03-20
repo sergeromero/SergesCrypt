@@ -11,9 +11,14 @@ var theCrypt;
                     var selectedAdventureDiv = document.getElementById("selected-adventure");
                     var newAdventureTemplate = document.getElementById("newAdventureTemplate").innerHTML;
 
-                    console.log(adventureDetails);
-
                     selectedAdventureDiv.innerHTML = Handlebars.compile(newAdventureTemplate)(adventureDetails);
+
+                    var btn = document.getElementById('btnCommand');
+                    btn.addEventListener("click", function(){
+                        var adventureId = document.getElementById('adventureId').value;
+                        
+                        theCrypt.Controllers.home.startNewAdventure(adventureId);
+                    });
                 }
             };
         };
