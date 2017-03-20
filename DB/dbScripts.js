@@ -39,7 +39,10 @@ db.serialize(() => {
     
     db.run(`CREATE TABLE if not exists Items
             (ItemId INTEGER PRIMARY KEY,
-             Description TEXT NOT NULL)`);
+             Description TEXT NOT NULL,
+             TotalUses INTEGER DEFAULT NULL,
+             DependantItemId INTEGER DEFAULT NULL,
+             FOREIGN KEY(DependantItemId) REFERENCES Items(ItemId))`);
 
     db.run(`CREATE TABLE if not exists PlaceItems
             (PlaceItemId INTEGER PRIMARY KEY,
@@ -68,6 +71,47 @@ db.serialize(() => {
              Damage INTEGER NOT NULL,
              FOREIGN KEY(PlaceExitId) REFERENCES Places(PlaceId))`);
 
+    db.run(`CREATE TABLE if not exists Users
+            (UserId INTEGER PRIMARY KEY,
+             FirstName TEXT NOT NULL,
+             LastName TEXT NOT NULL,
+             Email TEXT NOT NULL,
+             UserName TEXT NOT NULL,
+             Password TEXT NOT NULL)`);
+    
+    db.run(`CREATE TABLE if not exists Games
+            (GameId INTEGER PRIMARY KEY,
+             UserId INTEGER NOT NULL,
+             AdventureId INTEGER NOT NULL,
+             PlayerName TEXT NOT NULL,
+             CurrentPlaceId INTEGER NOT NULL,
+             FOREIGN KEY(GameId) REFERENCES Games(GameId),
+             FOREIGN KEY(AdventureId) REFERENCES Adventures(AdventureId),
+             FOREIGN KEY(CurrentPlaceId) REFERENCES Places(PlaceId))`);
+    
+    db.run(`CREATE TABLE if not exists GameItems
+            (GameItemId INTEGER PRIMARY KEY,
+             GameId INTEGER NOT NULL,
+             ItemId INTEGER NOT NULL,
+             RemainingUses INTEGER DEFAULT NULL,
+             FOREIGN KEY(ItemId) REFERENCES Items(ItemId),
+             FOREIGN KEY(GameId) REFERENCES Games(GameId))`);
+
+    db.run(`CREATE TABLE if not exists GamePlaceItems
+            (GamePlaceItemId INTEGER PRIMARY KEY,
+             GameId INTEGER NOT NULL,
+             PlaceId INTEGER NOT NULL,
+             GameItemId INTEGER NOT NULL,
+             FOREIGN KEY(GameId) REFERENCES Games(GameId),
+             FOREIGN KEY(PlaceId) REFERENCES Places(PlaceId),
+             FOREIGN KEY(GameItemId) REFERENCES GameItems(GameItemId))`);
+    
+    db.run(`CREATE TABLE if not exists GameExitChallenges
+            (GameExitChallengeId INTEGER PRIMARY KEY,
+             GameId INTEGER NOT NULL,
+             ExitChallengeId INTEGER NOT NULL,
+             Completed INTEGER DEFAULT 0)`);
+
     //SEED DATA
     let sql = db.prepare('INSERT INTO Adventures VALUES (?, ?, ?, ?, ?)');
     sql.run(null, 'The Dark House', 'A creepy house on top of a hill in the middle of nowhere. Will it be your shelter for tonight, or your doom.', 'house', 'fadedGreenWall');
@@ -86,13 +130,14 @@ db.serialize(() => {
     sql.finalize();
 
     //DATA FOR The Dark House ITEMS
-    sql = db.prepare('INSERT INTO Items VALUES (?, ?)');
+    sql = db.prepare('INSERT INTO Items VALUES (?, ?, ?, ?)');
     sql.run(null, 'a piece of cheese');
     sql.run(null, 'a rusty key');
     sql.run(null, 'a golden ring');
-    sql.run(null, 'a clip of bullets');
+    sql.run(null, 'a clip of bullets', 10);
     sql.run(null, 'a bottle of crystal liquid');
     sql.run(null, 'holy water');
+    sql.run(null, 'pistol', null, 4);
     sql.finalize();
 
     //DATA FOR The Dark House PLACE ITEMS
@@ -127,7 +172,7 @@ db.serialize(() => {
         console.log(`${row.PlaceId}, ${row.AdventureId}, ${row.Title}, ${row.Description}, ${row.Start}`);
     });
     db.each('SELECT * FROM Items', (err, row) => {
-        console.log(`${row.ItemId}, ${row.Description}`);
+        console.log(`${row.ItemId}, ${row.Description}, ${row.TotalUses}, ${row.DependantItemId}`);
     });
     db.each('SELECT * FROM PlaceItems', (err, row) => {
         console.log(`${row.PlaceItemId}, ${row.PlaceId}, ${row.ItemId}`);

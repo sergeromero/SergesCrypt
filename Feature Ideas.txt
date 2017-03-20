@@ -1,0 +1,18 @@
+- Hidden and lock doors as exit challenges.
+- Adding health/stamina to the challenges so as for them to be conquered with multiple actions.
+- Add ineficient solutions for the challenges. Separate the Requirement to its own table.
+- Posibility to use items on the player to heal or to display funny messages.
+- Capability for the challenges to move around and chase the player.
+- Caching of map places instead of getting the whole map in one shot.
+- Ability to save progress.
+- Log in and log out.
+- Security/use of sessions.
+- Ability to carry items tied to level of health/stamina.
+- Ability to drop items.
+- Restart the game from the beginning.
+- Restart the game from the last save event.
+- Use web controls instead of text commands.
+- Validation of data.
+- Protection against SQL injection.
+- Protection against cross-site scripting.
+- Add a spinner for long waiting tasks.
