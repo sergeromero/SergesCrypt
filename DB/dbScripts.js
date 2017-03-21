@@ -22,7 +22,7 @@ db.serialize(() => {
 
     //CREATE TABLES
     db.run(`CREATE TABLE if not exists Adventures
-            (AdventureId INTEGER PRIMARY KEY,
+            (AdventureId INTEGER PRIMARY KEY AUTOINCREMENT,
              Title TEXT NOT NULL,
              Description TEXT NOT NULL,
              BackgroundFile TEXT NOT NULL,
@@ -80,11 +80,11 @@ db.serialize(() => {
              Password TEXT NOT NULL)`);
     
     db.run(`CREATE TABLE if not exists Games
-            (GameId INTEGER PRIMARY KEY,
+            (GameId INTEGER PRIMARY KEY AUTOINCREMENT,
              UserId INTEGER NOT NULL,
              AdventureId INTEGER NOT NULL,
-             PlayerName TEXT NOT NULL,
              CurrentPlaceId INTEGER NOT NULL,
+             CharacterName TEXT NOT NULL,
              FOREIGN KEY(GameId) REFERENCES Games(GameId),
              FOREIGN KEY(AdventureId) REFERENCES Adventures(AdventureId),
              FOREIGN KEY(CurrentPlaceId) REFERENCES Places(PlaceId))`);
@@ -165,6 +165,11 @@ db.serialize(() => {
     sql.run(null, 1, 'A zombie sinks its teeth into your neck.', 'The zombie disintegrates into a puddle of goo.', 'The zombie is strangely resilient.', 6, 1, 20);
     sql.finalize();
 
+    //DATA FOR USER TABLE
+    sql = db.prepare('INSERT INTO Users VALUES (?, ?, ?, ?, ?, ?)');
+    sql.run(null, 'Serge', 'Romero', 'serge@email.com', 'sergeromero', 'mypwd');
+    sql.finalize();
+
     db.each('SELECT * FROM Adventures', (err, row) => {
         console.log(`${row.AdventureId}, ${row.Title}, ${row.Description}, ${row.BackgroundFile}, ${row.TilesBackgroundFile}`);
     });
@@ -183,6 +188,9 @@ db.serialize(() => {
     db.each('SELECT * FROM ExitChallenges', (err, row) => {
         console.log(`${row.ExitChallengeId}, ${row.PlaceExitId}, ${row.Message}, ${row.SuccessMessage}, ${row.FailureMessage}, ${row.Requires}, ${row.ItemConsumed}, ${row.Damage}`);
     });
+    db.each('SELECT * FROM Users', (err, row) => {
+        console.log(`${row.UserId}, ${row.FirstName}, ${row.LastName}, ${row.Email}, ${row.UserName}, ${row.Password}`);
+    })
 });
 
 db.close();

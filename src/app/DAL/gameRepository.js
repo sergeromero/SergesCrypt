@@ -91,3 +91,55 @@ module.exports.getAdventureDetails = (adventureId) => {
         });
     });
 };
+
+module.exports.startNewAdventure = (adventureId) => {
+    let gameId;
+    let insertFields = [];
+    insertFields.push({key: "GameId", value: null});
+    insertFields.push({key: "UserId", value: "1"});
+    insertFields.push({key: "AdventureId", value: adventureId});
+    insertFields.push({key: "CurrentPlaceId", value: "1"});
+    insertFields.push({key: "CharacterName", value: "John Doe"});
+
+    return new Promise((resolve, reject) => {
+        context.insert("Games", insertFields).then(newGameId => {
+            gameId = newGameId;
+            resolve();
+        }).then(() => {
+            //console.log(`Still have the adventureId: ${adventureId}`);
+            //console.log(`Still have the gameId: ${gameId}`);
+            //INSERT INTO GAME ITEMS
+            let insertFields = [];
+            insertFields.push({key: "GameItemId", value: ""});
+            insertFields.push({key: "ItemId", value: ""});
+            insertFields.push({key: "GameId", value: ""});
+            insertFields.push({key: "RemainingUses", value: ""});
+
+            let selectFields = [];
+            selectFields.push({key: "null", value: ""});
+            selectFields.push({key: "Items.ItemId", value: ""});
+            selectFields.push({key: gameId, value: ""});
+            selectFields.push({key: "TotalUses", value: ""});
+
+            let joins = [];
+            joins.push({join: "INNER JOIN", leftTable: "PlaceItems", rightTable: "Items", leftField: "ItemId", rightField: "ItemId"});
+            joins.push({join: "INNER JOIN", leftTable: "Places", rightTable: "PlaceItems", leftField: "PlaceId", rightField: "PlaceId"});
+            joins.push({join: "INNER JOIN", leftTable: "Adventures", rightTable: "Places", leftField: "AdventureId", rightField: "AdventureId"});
+
+            return context.insertIntoSelect("GameItems", "Items", insertFields, selectFields, [{ key: "Adventures.AdventureId", value: adventureId}], joins);
+        }).then(() => {
+            //INSERT INTO GAME PLACE ITEMS
+            console.log("Getting GameItems");
+            return context.read("GameItems");
+        }).then((results) => {
+            //INSERT INTO GAME EXIT CHALLENGES
+            console.log("Parsing GameItems");
+            console.log(results);
+            results.forEach(r => {
+                console.log(`${r.GameItemId}, ${r.ItemId}, ${r.GameId}, ${r.RemainingUses}`);
+            })
+        }).catch(err => {
+            reject(err);
+        });
+    });
+};

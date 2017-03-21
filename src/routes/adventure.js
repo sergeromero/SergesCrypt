@@ -7,7 +7,7 @@ var gameDal = require('../app/DAL/gameRepository');
 
 router.post('/new-adventure/:adventureId', (req, res, next) => {
     console.log(`Starting a new adventure of id ${req.params.adventureId}`);
-    //TODO: Add call to business layer to create new game.
+    gameDal.startNewAdventure(req.params.adventureId);
     //Redirect to adventure/:gameid
 });
 
