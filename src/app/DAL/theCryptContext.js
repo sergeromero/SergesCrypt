@@ -148,7 +148,7 @@ exports.insertIntoSelect = function(insertTable, selectTable, insertFields, sele
         return new Promise((resolve, reject) => {
             db.run(sql, filterValues, err => {
                 if(err) { console.log(`Rejected with: ${err}`);reject(err);}
-                else {console.log("Resolved");resolve();}
+                else resolve();
             });
         });
     });

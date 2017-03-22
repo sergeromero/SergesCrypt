@@ -93,6 +93,7 @@ module.exports.getAdventureDetails = (adventureId) => {
 };
 
 module.exports.startNewAdventure = (adventureId) => {
+    let adventureIdFilter = [{ key: "Adventures.AdventureId", value: adventureId}];
     let gameId;
     let insertFields = [];
     insertFields.push({key: "GameId", value: null});
@@ -104,10 +105,7 @@ module.exports.startNewAdventure = (adventureId) => {
     return new Promise((resolve, reject) => {
         context.insert("Games", insertFields).then(newGameId => {
             gameId = newGameId;
-            resolve();
         }).then(() => {
-            //console.log(`Still have the adventureId: ${adventureId}`);
-            //console.log(`Still have the gameId: ${gameId}`);
             //INSERT INTO GAME ITEMS
             let insertFields = [];
             insertFields.push({key: "GameItemId", value: ""});
@@ -126,18 +124,34 @@ module.exports.startNewAdventure = (adventureId) => {
             joins.push({join: "INNER JOIN", leftTable: "Places", rightTable: "PlaceItems", leftField: "PlaceId", rightField: "PlaceId"});
             joins.push({join: "INNER JOIN", leftTable: "Adventures", rightTable: "Places", leftField: "AdventureId", rightField: "AdventureId"});
 
-            return context.insertIntoSelect("GameItems", "Items", insertFields, selectFields, [{ key: "Adventures.AdventureId", value: adventureId}], joins);
+            return context.insertIntoSelect("GameItems", "Items", insertFields, selectFields, adventureIdFilter, joins);
         }).then(() => {
             //INSERT INTO GAME PLACE ITEMS
-            console.log("Getting GameItems");
-            return context.read("GameItems");
-        }).then((results) => {
+            let insertFields = [];
+            insertFields.push({key: "GamePlaceItemId", value: ""});
+            insertFields.push({key: "GameId", value: ""});
+            insertFields.push({key: "PlaceId", value: ""});
+            insertFields.push({key: "GameItemId", value: ""});
+
+            let selectFields = [];
+            selectFields.push({key: "null", value: ""});
+            selectFields.push({key: gameId, value: ""});
+            selectFields.push({key: "Places.PlaceId", value: ""});
+            selectFields.push({key: "GameItemId", value: ""});
+
+            let joins = [];
+            joins.push({join: "INNER JOIN", leftTable: "PlaceItems", rightTable: "GameItems", leftField: "ItemId", rightField: "ItemId"});
+            joins.push({join: "INNER JOIN", leftTable: "Places", rightTable: "PlaceItems", leftField: "PlaceId", rightField: "PlaceId"});
+            joins.push({join: "INNER JOIN", leftTable: "Adventures", rightTable: "Places", leftField: "AdventureId", rightField: "AdventureId"});
+
+            let gamePlaceItemsFilters = [adventureIdFilter[0], {key: "GameItems.GameId", value: gameId}];
+            
+            return context.insertIntoSelect("GamePlaceItems", "GameItems", insertFields, selectFields, gamePlaceItemsFilters, joins);
+        }).then(() => {
             //INSERT INTO GAME EXIT CHALLENGES
-            console.log("Parsing GameItems");
-            console.log(results);
-            results.forEach(r => {
-                console.log(`${r.GameItemId}, ${r.ItemId}, ${r.GameId}, ${r.RemainingUses}`);
-            })
+            return context.read("GamePlaceItems",[{key: "GameId", value: gameId}]).then((rows) => {
+                resolve(rows);
+            });
         }).catch(err => {
             reject(err);
         });
