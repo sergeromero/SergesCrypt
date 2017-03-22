@@ -80,17 +80,22 @@ var getInsertFieldNames = (fields) => {
 };
 
 var getJoins = (joins) => {
+    if(!joins) return "";
+    
     return joins.map(j => {
         return `${j.join} ${j.leftTable} ON ${j.leftTable}.${j.leftField} = ${j.rightTable}.${j.rightField}`;
     }).join(' ');
 };
 
-exports.read = function(table, filters, ...fields){    
+exports.read = function(table, filters, joins, ...fields){    
     let parsedFilters = getParsedFilters(filters);
     parsedFilters = parsedFilters !== "" ? `WHERE ${parsedFilters}` : ""; 
     let filterValues = getFilterValues(filters);
+    let parsedJoins = getJoins(joins);
 
-    let sql = `SELECT ${getFields(fields)} FROM ${table} ${parsedFilters}`;
+    let sql = `SELECT ${getFields(fields)} FROM ${table} 
+               ${parsedJoins} 
+               ${parsedFilters}`;
 
     return connectDB().then(() => {
         return new Promise((resolve, reject) => {
@@ -140,9 +145,9 @@ exports.insertIntoSelect = function(insertTable, selectTable, insertFields, sele
     let parsedJoins = getJoins(joins);
     
     let sql = `INSERT INTO ${insertTable} (${insertFieldNames})
-                SELECT ${selectFieldNames} FROM ${selectTable} 
-                ${parsedJoins} 
-                 ${parsedFilters}`;
+               SELECT ${selectFieldNames} FROM ${selectTable} 
+               ${parsedJoins} 
+               ${parsedFilters}`;
                  
     return connectDB().then(() => {
         return new Promise((resolve, reject) => {
