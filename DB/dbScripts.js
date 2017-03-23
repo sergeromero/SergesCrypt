@@ -45,6 +45,13 @@ db.serialize(() => {
              DependantItemId INTEGER DEFAULT NULL,
              FOREIGN KEY(DependantItemId) REFERENCES Items(ItemId))`);
 
+    db.run(`CREATE TABLE if not exists CharacterStartingItems
+            (CharacterStartingItemId INTEGER PRIMARY KEY,
+             AdventureId INTEGER NOT NULL,
+             ItemId INTEGER NOT NULL,
+             FOREIGN KEY(AdventureId) REFERENCES Adventures(AdventureId),
+             FOREIGN KEY(ItemId) REFERENCES Items(ItemId))`);
+
     db.run(`CREATE TABLE if not exists PlaceItems
             (PlaceItemId INTEGER PRIMARY KEY,
              PlaceId INTEGER NOT NULL,
@@ -99,6 +106,13 @@ db.serialize(() => {
              FOREIGN KEY(ItemId) REFERENCES Items(ItemId),
              FOREIGN KEY(GameId) REFERENCES Games(GameId))`);
 
+    db.run(`CREATE TABLE if not exists GameCharacterItems
+            (GameCharacterItemId INTEGER PRIMARY KEY,
+             GameId INTEGER NOT NULL,
+             GameItemId INTEGER NOT NULL,
+             FOREIGN KEY(GameId) REFERENCES Games(GameId),
+             FOREIGN KEY(GameItemId) REFERENCES GameItems(GameItemId))`);
+
     db.run(`CREATE TABLE if not exists GamePlaceItems
             (GamePlaceItemId INTEGER PRIMARY KEY,
              GameId INTEGER NOT NULL,
@@ -140,6 +154,14 @@ db.serialize(() => {
     sql.run(null, 'a bottle of crystal liquid');
     sql.run(null, 'holy water');
     sql.run(null, 'pistol', null, 4);
+    sql.run(null, 'The sword of doom');
+    sql.run(null, 'a pouch of coins');
+    sql.finalize();
+
+    //DATA FOR The Dark House CHARACTER STARTING ITEMS
+    sql = db.prepare('INSERT INTO CharacterStartingItems VALUES (?, ?, ?)');
+    sql.run(null, 1, 8);
+    sql.run(null, 1, 9);
     sql.finalize();
 
     //DATA FOR The Dark House PLACE ITEMS
@@ -150,6 +172,7 @@ db.serialize(() => {
     sql.run(null, 3, 4);
     sql.run(null, 4, 5);
     sql.run(null, 4, 6);
+    sql.run(null, 1, 7);
     sql.finalize();
 
     //DATA FOR The Dark House PLACE EXITS

@@ -72,19 +72,28 @@ var getGame = (gameId) => {
 module.exports.getGame = getGame;
 
 module.exports.getGameBy = (gameId) => {
-    return new Promise((resolve, reject) => {
-        let filters = [];
-        filters.push({key: "Games.GameId", value: gameId});
+    let gameFilter = [{key: "Games.GameId", value: gameId}]
+    var gameData = {};
 
+    return new Promise((resolve, reject) => {
         let joins = [];
         joins.push({join: "INNER JOIN", leftTable: "Adventures", rightTable: "Games", leftField: "AdventureId", rightField: "AdventureId"});
         joins.push({join: "INNER JOIN", leftTable: "Places", rightTable: "Games", leftField: "PlaceId", rightField: "CurrentPlaceId"});
 
-        let fields = ["Adventures.Title", "BackgroundFile", "TilesBackgroundFile", "Places.Title AS Start"];
-        context.read("Games", filters, joins, fields).then(results => {
-            resolve(results);
-        }, err => {
-            reject(err);
+        let fields = ["Adventures.Title", "BackgroundFile", "TilesBackgroundFile", "Places.Title AS Start", "CharacterName", "CharacterHealth"];
+        return context.read("Games", gameFilter, joins, fields).then(results => {
+            gameData.game = results[0];
+        }).then(results => {
+            let joins = [];
+            joins.push({join: "INNER JOIN", leftTable: "GameItems", rightTable: "GameCharacterItems", leftField: "GameItemId", rightField: "GameItemId"});
+            joins.push({join: "INNER JOIN", leftTable: "Items", rightTable: "GameItems", leftField: "ItemId", rightField: "ItemId"});
+            
+            let fields = ["GameCharacterItemId", "GameItems.GameItemId", "RemainingUses", "Items.Description"];
+
+            return context.read("GameCharacterItems", [{key: "GameCharacterItems.GameId", value: gameId}], joins, fields);
+        }).then((results) => {
+            gameData.playerItems = results;
+            resolve(gameData);
         });
     });
 };
@@ -134,7 +143,7 @@ module.exports.startNewAdventure = (adventureId) => {
          return context.insertIntoSelect("Games", "Adventures", insertFields, selectFields, adventureIdFilter).then(newGameId => {
             gameId = newGameId;
         }).then(() => {
-            //INSERT INTO GAME ITEMS
+            //INSERT INTO GAME ITEMS - ITEMS FOUND IN PLACES
             let insertFields = [];
             insertFields.push({key: "GameItemId", value: ""});
             insertFields.push({key: "ItemId", value: ""});
@@ -153,6 +162,40 @@ module.exports.startNewAdventure = (adventureId) => {
             joins.push({join: "INNER JOIN", leftTable: "Adventures", rightTable: "Places", leftField: "AdventureId", rightField: "AdventureId"});
 
             return context.insertIntoSelect("GameItems", "Items", insertFields, selectFields, adventureIdFilter, joins);
+        }).then(() => {
+            //INSERT INTO GAME ITEMS - ITEMS WITH WHICH THE CHARACTER STARTS THE ADVENTURE
+            let insertFields = [];
+            insertFields.push({key: "GameItemId", value: ""});
+            insertFields.push({key: "ItemId", value: ""});
+            insertFields.push({key: "GameId", value: ""});
+            insertFields.push({key: "RemainingUses", value: ""});
+
+            let selectFields = [];
+            selectFields.push({key: "null", value: ""});
+            selectFields.push({key: "CharacterStartingItems.ItemId", value: ""});
+            selectFields.push({key: gameId, value: ""});
+            selectFields.push({key: "TotalUses", value: ""});
+
+            let joins = [];
+            joins.push({join: "INNER JOIN", leftTable: "Items", rightTable: "CharacterStartingItems", leftField: "ItemId", rightField: "ItemId"});
+            
+            return context.insertIntoSelect("GameItems", "CharacterStartingItems", insertFields, selectFields, [{ key: "CharacterStartingItems.AdventureId", value: adventureId}], joins);
+        }).then(() => {
+            //INSERT INTO GAME CHARACTER ITEMS
+            let insertFields = [];
+            insertFields.push({key: "GameCharacterItemId", value: ""});
+            insertFields.push({key: "GameId", value: ""});
+            insertFields.push({key: "GameItemId", value: ""});
+
+            let selectFields = [];
+            selectFields.push({key: "null", value: ""});
+            selectFields.push({key: gameId, value: ""});
+            selectFields.push({key: "GameItemId", value: ""});
+
+            let joins = [];
+            joins.push({join: "INNER JOIN", leftTable: "CharacterStartingItems", rightTable: "GameItems", leftField: "ItemId", rightField: "ItemId"});
+
+            return context.insertIntoSelect("GameCharacterItems", "GameItems", insertFields, selectFields, [{ key: "CharacterStartingItems.AdventureId", value: adventureId}], joins);
         }).then(() => {
             //INSERT INTO GAME PLACE ITEMS
             let insertFields = [];
