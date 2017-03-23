@@ -81,7 +81,7 @@ var getInsertFieldNames = (fields) => {
 
 var getJoins = (joins) => {
     if(!joins) return "";
-    
+
     return joins.map(j => {
         return `${j.join} ${j.leftTable} ON ${j.leftTable}.${j.leftField} = ${j.rightTable}.${j.rightField}`;
     }).join(' ');
@@ -125,13 +125,17 @@ exports.insert = function(table, fields){
                 else resolve();
             });
         }).then(() => {
-            return new Promise((resolve, reject) => {
-                var query = `SELECT seq FROM sqlite_sequence WHERE name = "${table}"`;
-                db.get(query, (err, row) =>{
-                    if(err) reject(err);
-                    else resolve(row !== undefined ? row.seq : undefined);
-                });
-            });
+            return getLastInsertedId(table);
+        });
+    });
+};
+
+let getLastInsertedId = (tableName) => {
+    return new Promise((resolve, reject) => {
+        var query = `SELECT seq FROM sqlite_sequence WHERE name = "${tableName}"`;
+        db.get(query, (err, row) =>{
+            if(err) reject(err);
+            else resolve(row !== undefined ? row.seq : undefined);
         });
     });
 };
@@ -148,13 +152,15 @@ exports.insertIntoSelect = function(insertTable, selectTable, insertFields, sele
                SELECT ${selectFieldNames} FROM ${selectTable} 
                ${parsedJoins} 
                ${parsedFilters}`;
-                 
+
     return connectDB().then(() => {
         return new Promise((resolve, reject) => {
             db.run(sql, filterValues, err => {
                 if(err) { console.log(`Rejected with: ${err}`);reject(err);}
                 else resolve();
             });
+        }).then(() => {
+            return getLastInsertedId(insertTable);;
         });
     });
 };

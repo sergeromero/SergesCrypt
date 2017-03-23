@@ -26,7 +26,8 @@ db.serialize(() => {
              Title TEXT NOT NULL,
              Description TEXT NOT NULL,
              BackgroundFile TEXT NOT NULL,
-             TilesBackgroundFile TEXT NOT NULL)`);
+             TilesBackgroundFile TEXT NOT NULL,
+             CharacterStartingHealth INTEGER NOT NULL)`);
     
     db.run(`CREATE TABLE if not exists Places
             (PlaceId INTEGER PRIMARY KEY,
@@ -85,6 +86,7 @@ db.serialize(() => {
              AdventureId INTEGER NOT NULL,
              CurrentPlaceId INTEGER NOT NULL,
              CharacterName TEXT NOT NULL,
+             CharacterHealth INTEGER NOT NULL,
              FOREIGN KEY(GameId) REFERENCES Games(GameId),
              FOREIGN KEY(AdventureId) REFERENCES Adventures(AdventureId),
              FOREIGN KEY(CurrentPlaceId) REFERENCES Places(PlaceId))`);
@@ -113,10 +115,10 @@ db.serialize(() => {
              Completed INTEGER DEFAULT 0)`);
 
     //SEED DATA
-    let sql = db.prepare('INSERT INTO Adventures VALUES (?, ?, ?, ?, ?)');
-    sql.run(null, 'The Dark House', 'A creepy house on top of a hill in the middle of nowhere. Will it be your shelter for tonight, or your doom.', 'house', 'fadedGreenWall');
-    sql.run(null, 'The Mysterious Forest', 'As night falls you realize you are lost in the forest. You get a funny feeling something dark and terrible lies in these trees.', 'forest', 'forestTiles');
-    sql.run(null, 'The Black Cavern', 'Everybody knows to stay away from this ugly looking place but your friends dared you to enter. Sometimes it is not wise to accept the challenge.', 'cavern', 'cavernTiles');
+    let sql = db.prepare('INSERT INTO Adventures VALUES (?, ?, ?, ?, ?, ?)');
+    sql.run(null, 'The Dark House', 'A creepy house on top of a hill in the middle of nowhere. Will it be your shelter for tonight, or your doom.', 'house', 'fadedGreenWall', 180);
+    sql.run(null, 'The Mysterious Forest', 'As night falls you realize you are lost in the forest. You get a funny feeling something dark and terrible lies in these trees.', 'forest', 'forestTiles', 220);
+    sql.run(null, 'The Black Cavern', 'Everybody knows to stay away from this ugly looking place but your friends dared you to enter. Sometimes it is not wise to accept the challenge.', 'cavern', 'cavernTiles', 300);
     //The Alien Planet
     //The Abandoned Spaceship
     sql.finalize();

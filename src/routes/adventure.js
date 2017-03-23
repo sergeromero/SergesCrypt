@@ -7,18 +7,14 @@ var gameDal = require('../app/DAL/gameRepository');
 
 router.post('/new-adventure/:adventureId', (req, res, next) => {
     console.log(`Starting a new adventure of id ${req.params.adventureId}`);
-            gameDal.getGameBy(43).then(results => {
-            //console.log(gameId);
-            console.log(results);
-        });
-/*        
+        
     gameDal.startNewAdventure(req.params.adventureId).then(gameId => {
         gameDal.getGameBy(gameId).then(results => {
             console.log(gameId);
             console.log(results);
         });
     });
-    */
+    
     //Redirect to adventure/:gameid 43
 });
 
