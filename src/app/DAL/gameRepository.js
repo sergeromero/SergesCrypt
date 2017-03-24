@@ -125,7 +125,6 @@ module.exports.startNewAdventure = (adventureId) => {
 
     return new Promise((resolve, reject) => {
         let insertFields = [];
-        insertFields.push({key: "GameId", value: ""});
         insertFields.push({key: "UserId", value: ""});
         insertFields.push({key: "AdventureId", value: ""});
         insertFields.push({key: "CurrentPlaceId", value: ""});
@@ -133,7 +132,6 @@ module.exports.startNewAdventure = (adventureId) => {
         insertFields.push({key: "CharacterHealth", value: ""});
 
         let selectFields = [];
-        selectFields.push({key: "null", value: ""});
         selectFields.push({key: "1", value: ""});
         selectFields.push({key: adventureId, value: ""});
         selectFields.push({key: "1", value: ""});
@@ -145,13 +143,11 @@ module.exports.startNewAdventure = (adventureId) => {
         }).then(() => {
             //INSERT INTO GAME ITEMS - ITEMS FOUND IN PLACES
             let insertFields = [];
-            insertFields.push({key: "GameItemId", value: ""});
             insertFields.push({key: "ItemId", value: ""});
             insertFields.push({key: "GameId", value: ""});
             insertFields.push({key: "RemainingUses", value: ""});
 
             let selectFields = [];
-            selectFields.push({key: "null", value: ""});
             selectFields.push({key: "Items.ItemId", value: ""});
             selectFields.push({key: gameId, value: ""});
             selectFields.push({key: "TotalUses", value: ""});
@@ -165,13 +161,11 @@ module.exports.startNewAdventure = (adventureId) => {
         }).then(() => {
             //INSERT INTO GAME ITEMS - ITEMS WITH WHICH THE CHARACTER STARTS THE ADVENTURE
             let insertFields = [];
-            insertFields.push({key: "GameItemId", value: ""});
             insertFields.push({key: "ItemId", value: ""});
             insertFields.push({key: "GameId", value: ""});
             insertFields.push({key: "RemainingUses", value: ""});
 
             let selectFields = [];
-            selectFields.push({key: "null", value: ""});
             selectFields.push({key: "CharacterStartingItems.ItemId", value: ""});
             selectFields.push({key: gameId, value: ""});
             selectFields.push({key: "TotalUses", value: ""});
@@ -180,32 +174,29 @@ module.exports.startNewAdventure = (adventureId) => {
             joins.push({join: "INNER JOIN", leftTable: "Items", rightTable: "CharacterStartingItems", leftField: "ItemId", rightField: "ItemId"});
             
             return context.insertIntoSelect("GameItems", "CharacterStartingItems", insertFields, selectFields, [{ key: "CharacterStartingItems.AdventureId", value: adventureId}], joins);
-        }).then(() => {
+        }).then((result) => {
             //INSERT INTO GAME CHARACTER ITEMS
+            
             let insertFields = [];
-            insertFields.push({key: "GameCharacterItemId", value: ""});
             insertFields.push({key: "GameId", value: ""});
             insertFields.push({key: "GameItemId", value: ""});
 
             let selectFields = [];
-            selectFields.push({key: "null", value: ""});
             selectFields.push({key: gameId, value: ""});
             selectFields.push({key: "GameItemId", value: ""});
 
             let joins = [];
             joins.push({join: "INNER JOIN", leftTable: "CharacterStartingItems", rightTable: "GameItems", leftField: "ItemId", rightField: "ItemId"});
 
-            return context.insertIntoSelect("GameCharacterItems", "GameItems", insertFields, selectFields, [{ key: "CharacterStartingItems.AdventureId", value: adventureId}], joins);
+            return context.insertIntoSelect("GameCharacterItems", "GameItems", insertFields, selectFields, [{ key: "CharacterStartingItems.AdventureId", value: adventureId}, {key: "GameId", value: gameId}], joins);
         }).then(() => {
             //INSERT INTO GAME PLACE ITEMS
             let insertFields = [];
-            insertFields.push({key: "GamePlaceItemId", value: ""});
             insertFields.push({key: "GameId", value: ""});
             insertFields.push({key: "PlaceId", value: ""});
             insertFields.push({key: "GameItemId", value: ""});
 
             let selectFields = [];
-            selectFields.push({key: "null", value: ""});
             selectFields.push({key: gameId, value: ""});
             selectFields.push({key: "Places.PlaceId", value: ""});
             selectFields.push({key: "GameItemId", value: ""});
@@ -221,13 +212,11 @@ module.exports.startNewAdventure = (adventureId) => {
         }).then(() => {
             //INSERT INTO GAME EXIT CHALLENGES
             let insertFields = [];
-            insertFields.push({key: "GameExitChallengeId", value: ""});
             insertFields.push({key: "GameId", value: ""});
             insertFields.push({key: "ExitChallengeId", value: ""});
             insertFields.push({key: "Completed", value: ""});
 
             let selectFields = [];
-            selectFields.push({key: "null", value: ""});
             selectFields.push({key: gameId, value: ""});
             selectFields.push({key: "ExitChallengeId", value: ""});
             selectFields.push({key: "0", value: ""});
