@@ -12,15 +12,18 @@ var theCrypt;
 			var init = function(){
 				var xhr = new XMLHttpRequest();
 				//http://localhost:3033/game/:gameId
-				var url = "http://localhost:3033/game/555";
+				var t = window.location.href;
+				var t1 = t.split('/');
+				var t2 = t1[t1.length - 1];
+				var url = `http://localhost:3033/game/${t2}`;
 
 				xhr.addEventListener("load", () => {
 					var gameData = JSON.parse(xhr.responseText);
-					var start = theCrypt.Map.build(gameData);
+					//var start = theCrypt.Map.build(gameData);
 				
 					player = new theCrypt.Model.Player(gameData.player.name, gameData.player.health);
 					gameData.player.items.forEach(player.addItem);
-					player.setPlace(start);
+					//player.setPlace(start);
 					
 					inPlay = true;
 
@@ -45,9 +48,9 @@ var theCrypt;
 				
 				if(inPlay){
 					const playerView = theCrypt.Views.player;
-					const placeView = theCrypt.Views.place;
+					//const placeView = theCrypt.Views.place;
 					playerView.render(player);
-					placeView.render(player.getPlace());
+					//placeView.render(player.getPlace());
 				}
 			};
 			

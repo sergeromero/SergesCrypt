@@ -93,6 +93,40 @@ module.exports.getGameBy = (gameId) => {
             return context.read("GameCharacterItems", [{key: "GameCharacterItems.GameId", value: gameId}], joins, fields);
         }).then((results) => {
             gameData.playerItems = results;
+
+            let joins = [];
+            joins.push({join: "INNER JOIN", leftTable: "Games", rightTable: "Places", leftField: "AdventureId", rightField: "AdventureId"});
+
+            return context.read("Places", [{key: "Games.GameId", value: gameId}], joins, ["Places.*"]);
+        }).then(results => {
+            gameData.places = results;
+
+            let joins = [];
+            joins.push({join: "INNER JOIN", leftTable: "GameItems", rightTable: "GamePlaceItems", leftField: "GameItemId", rightField: "GameItemId"});
+            joins.push({join: "INNER JOIN", leftTable: "Items", rightTable: "GameItems", leftField: "ItemId", rightField: "ItemId"});
+
+            let fields = ["GamePlaceItemId", "GamePlaceItems.PlaceId", "GamePlaceItems.GameItemId", "GamePlaceItems.GameId", "Items.Description", "TotalUses", "DependantItemId"];
+
+            return context.read("GamePlaceItems", [{key: "GamePlaceItems.GameId", value: gameId}], joins, fields);
+        }).then(results => {
+            gameData.placeItems = results;
+
+            let joins = [];
+            joins.push({join: "INNER JOIN", leftTable: "Places", rightTable: "PlaceExits", leftField: "PlaceId", rightField: "PlaceId"});
+            joins.push({join: "INNER JOIN", leftTable: "Games", rightTable: "Places", leftField: "AdventureId", rightField: "AdventureId"});
+
+            return context.read("PlaceExits", [{key: "Games.GameId", value: gameId}], joins, "PlaceExits.*");
+        }).then(results => {
+            gameData.exits = results;
+
+            let joins = [];
+            joins.push({join: "INNER JOIN", leftTable: "PlaceExits", rightTable: "ExitChallenges", leftField: "PlaceExitId", rightField: "PlaceExitId"});
+            joins.push({join: "INNER JOIN", leftTable: "Places", rightTable: "PlaceExits", leftField: "PlaceId", rightField: "PlaceId"});
+            joins.push({join: "INNER JOIN", leftTable: "Games", rightTable: "Places", leftField: "AdventureId", rightField: "AdventureId"});
+
+            return context.read("ExitChallenges", [{key: "Games.GameId", value: gameId}], joins, "ExitChallenges.*");
+        }).then(results => {
+            gameData.exitChallenges = results;
             resolve(gameData);
         });
     });

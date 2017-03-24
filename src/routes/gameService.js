@@ -3,11 +3,10 @@
 var express = require('express');
 var router = express.Router();
 
-var gameDal = require('../app/DAL/gameRepository');
+var gameBl = require('../app/Business/gameBl');
 
 router.get('/:gameId', (req, res, next) => {
-
-    gameDal.getGame(0).then(gameData => {
+    gameBl.loadGameBy(req.params.gameId).then(gameData => {
         res.json(gameData);
     }).catch(err => {
         next(err);

@@ -3,31 +3,26 @@
 var express = require('express');
 var router = express.Router();
 
-var gameDal = require('../app/DAL/gameRepository');
+var gameBl = require('../app/Business/gameBl');
 
 router.post('/new-adventure/:adventureId', (req, res, next) => {
     console.log(`Starting a new adventure of id ${req.params.adventureId}`);
-    /*
-    gameDal.getGameBy(11).then(results => {
-        console.log(11);
-        console.log(results);
-    });
-    */
 
-    gameDal.startNewAdventure(req.params.adventureId).then(gameId => {
-        console.log(`New adventure has been created successfully with id: ${gameId}`)
-        gameDal.getGameBy(gameId).then(results => {
-            console.log(results);
-        });
+    let userId = 1;
+    let characterName = "John Doe";
+
+    gameBl.startNewGame(req.params.adventureId, userId, characterName).then(gameId => {  
+        console.log(`Redirecting with id: ${gameId}`)      
+        res.redirect(303, `adventure/${gameId}`);
     });
-    
-    //Redirect to adventure/:gameid 43
 });
 
 router.use('/:gameId', (req, res, next) => {
     if(!res.locals.gameContext) res.locals.gameContext = {};
 
-    gameDal.getGame(0).then(game => {
+    console.log(`Redirected with id: ${req.params.gameId}`);
+
+    gameBl.loadGameBy(req.params.gameId).then(game => {
         res.locals.gameContext.player = game.player;
         res.locals.gameContext.place = game.place;
         req.gameTitle = game.title;
