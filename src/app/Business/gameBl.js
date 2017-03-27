@@ -9,7 +9,7 @@ exports.startNewGame = (adventureId, userId, characterName) => {
 exports.loadGameBy = (gameId, userId) => {
     return new Promise((resolve, reject) => {
         return gameDal.getGameBy(gameId).then(gameData => {
-            //Build JSON object front end expects.
+            
             let result = toDto(gameData);
             resolve(result);
         });
@@ -32,6 +32,28 @@ let toDto = (gameData => {
     };
 
     gameData.playerItems.forEach(i => result.player.items.push(i.Description));
+
+    result.places = [];
+    gameData.places.forEach(p => {
+        let place = {
+            title: p.Title,
+            description: p.Description,
+            items: [],
+            exits: []
+        };
+
+        gameData.placeItems.forEach(i => {if(i.PlaceId === p.PlaceId) place.items.push(i.Description)});
+        gameData.exits.forEach(i => {
+            let exit = {};
+
+            exit.direction = i.Direction;
+            exit.to = gameData.places.find(p => p.PlaceId === i.ToPlaceId).Description;
+
+            place.exits.push(exit);
+        });
+
+        result.places.push(place);
+    });
 
     return result;
 });

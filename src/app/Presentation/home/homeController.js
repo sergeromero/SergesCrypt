@@ -23,6 +23,13 @@ var theCrypt;
                 var xhr = new XMLHttpRequest();
                 var url = `http://localhost:3033/adventure/new-adventure/${adventureId}`;
 
+                xhr.addEventListener("load", function(){
+                    let data = JSON.parse(this.responseText);
+                    if(data.redirect){
+                        window.location.href = `http://localhost:3033${data.redirect}`;
+                    }
+                })
+
                 xhr.open('POST', url);
                 xhr.send();
             };

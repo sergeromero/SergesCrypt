@@ -11,16 +11,17 @@ router.post('/new-adventure/:adventureId', (req, res, next) => {
     let userId = 1;
     let characterName = "John Doe";
 
+    res.send({redirect: `/adventure/23`});
+/*
     gameBl.startNewGame(req.params.adventureId, userId, characterName).then(gameId => {  
         console.log(`Redirecting with id: ${gameId}`)      
         res.redirect(303, `adventure/${gameId}`);
     });
+*/    
 });
 
 router.use('/:gameId', (req, res, next) => {
     if(!res.locals.gameContext) res.locals.gameContext = {};
-
-    console.log(`Redirected with id: ${req.params.gameId}`);
 
     gameBl.loadGameBy(req.params.gameId).then(game => {
         res.locals.gameContext.player = game.player;
@@ -35,6 +36,7 @@ router.use('/:gameId', (req, res, next) => {
 });
 
 router.get('/:gameId', (req, res) => {
+    console.log("rendering adventure");
     res.render('adventure', { "title": req.gameTitle, "backgroundImage": req.backgroundImage, "tilesBackground": req.tilesBackground });
 });
 
