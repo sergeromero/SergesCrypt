@@ -42,14 +42,20 @@ let toDto = (gameData => {
             exits: []
         };
 
-        gameData.placeItems.forEach(i => {if(i.PlaceId === p.PlaceId) place.items.push(i.Description)});
+        gameData.placeItems.forEach(i => {
+            if(i.PlaceId === p.PlaceId) place.items.push(i.Description);
+        });
+
         gameData.exits.forEach(i => {
-            let exit = {};
+            if(i.PlaceId === p.PlaceId)
+            {
+                let exit = {};
 
-            exit.direction = i.Direction;
-            exit.to = gameData.places.find(p => p.PlaceId === i.ToPlaceId).Description;
+                exit.direction = i.Direction;
+                exit.to = gameData.places.find(toPlace => i.ToPlaceId === toPlace.PlaceId).Title;
 
-            place.exits.push(exit);
+                place.exits.push(exit);
+            }
         });
 
         result.places.push(place);

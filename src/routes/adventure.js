@@ -36,7 +36,6 @@ router.use('/:gameId', (req, res, next) => {
 });
 
 router.get('/:gameId', (req, res) => {
-    console.log("rendering adventure");
     res.render('adventure', { "title": req.gameTitle, "backgroundImage": req.backgroundImage, "tilesBackground": req.tilesBackground });
 });
 
