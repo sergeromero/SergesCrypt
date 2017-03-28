@@ -5,20 +5,22 @@ var theCrypt;
 	(function(){
         'use script';
 
+        let constants = theCrypt.Constants;
+
 		var game = function(){
 			var player;
 			var inPlay = false;
 			
 			var init = function(){
-				var xhr = new XMLHttpRequest();
-				//http://localhost:3033/game/:gameId
-				var t = window.location.href;
-				var t1 = t.split('/');
-				var t2 = t1[t1.length - 1];
-				var url = `http://localhost:3033/game/${t2}`;
+				let httpRequester = new theCrypt.RAL.HttpRequester();
+				let href = window.location.href;
+				var urlSections = href.split('/');
+				var gameId = urlSections[urlSections.length - 1];
+				var url = `${constants.gameUrl}${gameId}`;
+				console.log(url);
 
-				xhr.addEventListener("load", () => {
-					var gameData = JSON.parse(xhr.responseText);
+				httpRequester.get(url, function(){
+					var gameData = JSON.parse(this.responseText);
 					var start = theCrypt.Map.build(gameData);
 				
 					player = new theCrypt.Model.Player(gameData.player.name, gameData.player.health);
@@ -29,8 +31,6 @@ var theCrypt;
 
 					render();
 				});
-				xhr.open("GET", url);
-				xhr.send();
 			};
 			
 			var checkGameStatus = function(){

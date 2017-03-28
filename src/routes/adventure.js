@@ -6,18 +6,12 @@ var router = express.Router();
 var gameBl = require('../app/Business/gameBl');
 
 router.post('/new-adventure/:adventureId', (req, res, next) => {
-    console.log(`Starting a new adventure of id ${req.params.adventureId}`);
-
     let userId = 1;
     let characterName = "John Doe";
 
-    res.send({redirect: `/adventure/23`});
-/*
     gameBl.startNewGame(req.params.adventureId, userId, characterName).then(gameId => {  
-        console.log(`Redirecting with id: ${gameId}`)      
-        res.redirect(303, `adventure/${gameId}`);
+        res.send({redirect: `adventure/${gameId}`});
     });
-*/    
 });
 
 router.use('/:gameId', (req, res, next) => {

@@ -5,33 +5,31 @@ var theCrypt;
     (function(){
         'use script';
 
-        var home = function(){
-            var getAdventureDetails = function(adventureId){
-                var xhr = new XMLHttpRequest();
-                var url = `http://localhost:3033/${adventureId}`;
+        let constants = theCrypt.Constants;
 
-                xhr.addEventListener("load", () => {
-                    var details = JSON.parse(xhr.responseText);
+        var home = function(){
+            let httpRequester = new theCrypt.RAL.HttpRequester();
+
+            var getAdventureDetails = function(adventureId){
+                const url = `${constants.adventureDetailsUrl}${adventureId}`;
+                
+                httpRequester.get(url, function(){
+                    const details = JSON.parse(this.responseText);
                     
                     theCrypt.Views.newAdventure.render(details);
                 });
-                xhr.open("GET", url);
-				xhr.send();
             };
 
             var startNewAdventure = function(adventureId){
-                var xhr = new XMLHttpRequest();
-                var url = `http://localhost:3033/adventure/new-adventure/${adventureId}`;
+                const url = `${constants.newAdventureUrl}${adventureId}`;
 
-                xhr.addEventListener("load", function(){
-                    let data = JSON.parse(this.responseText);
+               httpRequester.post(url, function(){
+                    const data = JSON.parse(this.responseText);
+
                     if(data.redirect){
-                        window.location.href = `http://localhost:3033${data.redirect}`;
-                    }
+                        window.location.href = `${constants.homeUrl}${data.redirect}`;
+                    }                    
                 })
-
-                xhr.open('POST', url);
-                xhr.send();
             };
 
             return {
