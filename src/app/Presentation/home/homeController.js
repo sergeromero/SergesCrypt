@@ -13,8 +13,8 @@ var theCrypt;
             var getAdventureDetails = function(adventureId){
                 const url = `${constants.adventureDetailsUrl}${adventureId}`;
                 
-                httpRequester.get(url, function(){
-                    const details = JSON.parse(this.responseText);
+                httpRequester.get(url).then(function(response){
+                    const details = JSON.parse(response);
                     
                     theCrypt.Views.newAdventure.render(details);
                 });
@@ -23,13 +23,13 @@ var theCrypt;
             var startNewAdventure = function(adventureId){
                 const url = `${constants.newAdventureUrl}${adventureId}`;
 
-               httpRequester.post(url, function(){
-                    const data = JSON.parse(this.responseText);
+               httpRequester.post(url).then(function(response){
+                    const data = JSON.parse(response);
 
                     if(data.redirect){
                         window.location.href = `${constants.homeUrl}${data.redirect}`;
                     }                    
-                })
+                });
             };
 
             return {

@@ -17,10 +17,9 @@ var theCrypt;
 				var urlSections = href.split('/');
 				var gameId = urlSections[urlSections.length - 1];
 				var url = `${constants.gameUrl}${gameId}`;
-				console.log(url);
 
-				httpRequester.get(url, function(){
-					var gameData = JSON.parse(this.responseText);
+				httpRequester.get(url).then(function(response){
+					var gameData = JSON.parse(response);
 					var start = theCrypt.Map.build(gameData);
 				
 					player = new theCrypt.Model.Player(gameData.player.name, gameData.player.health);

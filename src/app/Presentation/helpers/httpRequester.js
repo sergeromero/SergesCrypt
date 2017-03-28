@@ -7,22 +7,48 @@ var theCrypt;
 
         let HttpRequester = function()
         {
-            this.get = (url, callback) => {
-                let xhr = new XMLHttpRequest();
+            this.get = (url) => {
+                return new Promise((resolve, reject) => {
+                    xhr = new XMLHttpRequest();
+                    xhr.open('GET', url);
 
-                xhr.addEventListener('load', callback);
+                    xhr.onload = function(){
+                        if(xhr.status === 200){
+                            resolve(xhr.response);
+                        }
+                        else{
+                            reject(Error(xhr.statusText));
+                        }
+                    };
 
-                xhr.open('GET', url);
-                xhr.send();
+                    xhr.onerror = function(){
+                        reject(Error('Network Error'));
+                    };
+
+                    xhr.send();
+                });
             };
 
-            this.post = (url, callback) => {
-                let xhr = new XMLHttpRequest();
+            this.post = (url) => {
+                return new Promise((resolve, reject) => {
+                    xhr = new XMLHttpRequest();
+                    xhr.open('POST', url);
 
-                xhr.addEventListener('load', callback);
+                    xhr.onload = function(){
+                        if(xhr.status === 200){
+                            resolve(xhr.response);
+                        }
+                        else{
+                            reject(Error(xhr.statusText));
+                        }
+                    };
 
-                xhr.open('POST', url);
-                xhr.send();
+                    xhr.onerror = function(){
+                        reject(Error('Network Error'));
+                    };
+
+                    xhr.send();
+                })
             };
         };
 
