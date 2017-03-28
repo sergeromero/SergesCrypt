@@ -31,10 +31,10 @@ let toDto = (gameData => {
         items: []
     };
 
-    gameData.playerItems.forEach(i => result.player.items.push(i.Description));
+    d.playerItems.forEach(i => result.player.items.push(i.Description));
 
     result.places = [];
-    gameData.places.forEach(p => {
+    d.places.forEach(p => {
         let place = {
             title: p.Title,
             description: p.Description,
@@ -42,17 +42,29 @@ let toDto = (gameData => {
             exits: []
         };
 
-        gameData.placeItems.forEach(i => {
+        d.placeItems.forEach(i => {
             if(i.PlaceId === p.PlaceId) place.items.push(i.Description);
         });
 
-        gameData.exits.forEach(i => {
-            if(i.PlaceId === p.PlaceId)
+        d.exits.forEach(e => {
+            if(e.PlaceId === p.PlaceId)
             {
                 let exit = {};
 
-                exit.direction = i.Direction;
-                exit.to = gameData.places.find(toPlace => i.ToPlaceId === toPlace.PlaceId).Title;
+                exit.direction = e.Direction;
+                exit.to = d.places.find(toPlace => e.ToPlaceId === toPlace.PlaceId).Title;
+
+                var challenge = d.exitChallenges.find(ch => ch.PlaceExitId === e.PlaceExitId);
+                if(challenge){
+                    exit.challenge = {
+                        message: challenge.Message,
+                        success: challenge.SuccessMessage,
+                        failure: challenge.FailureMessage,
+                        requires: (d.playerItems.find(pi => challenge.Requires === pi.ItemId) || d.placeItems.find(pi =>  challenge.Requires === pi.ItemId)).Description,
+                        itemConsumed: challenge.ItemConsumed,
+                        damage: challenge.Damage
+                    };
+                }
 
                 place.exits.push(exit);
             }

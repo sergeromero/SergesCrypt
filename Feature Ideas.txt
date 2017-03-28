@@ -16,3 +16,9 @@
 - Protection against SQL injection.
 - Protection against cross-site scripting.
 - Add a spinner for long waiting tasks.
+- Multiple challenges per exit:
+    - Once the player tries an exit all challenges are activated and act at different time intervals (level hard).
+    - Posibility to use an item to a specific challenge
+- Multiple levels of difficulty:
+    - First level - specific to the adventure.
+    - Second level - at the user's settings level.

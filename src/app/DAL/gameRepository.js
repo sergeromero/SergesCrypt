@@ -88,7 +88,7 @@ module.exports.getGameBy = (gameId) => {
             joins.push({join: "INNER JOIN", leftTable: "GameItems", rightTable: "GameCharacterItems", leftField: "GameItemId", rightField: "GameItemId"});
             joins.push({join: "INNER JOIN", leftTable: "Items", rightTable: "GameItems", leftField: "ItemId", rightField: "ItemId"});
             
-            let fields = ["GameCharacterItemId", "GameItems.GameItemId", "RemainingUses", "Items.Description"];
+            let fields = ["GameCharacterItemId", "GameItems.GameItemId", "RemainingUses", "Items.Description", "Items.ItemId"];
 
             return context.read("GameCharacterItems", [{key: "GameCharacterItems.GameId", value: gameId}], joins, fields);
         }).then((results) => {
@@ -105,7 +105,7 @@ module.exports.getGameBy = (gameId) => {
             joins.push({join: "INNER JOIN", leftTable: "GameItems", rightTable: "GamePlaceItems", leftField: "GameItemId", rightField: "GameItemId"});
             joins.push({join: "INNER JOIN", leftTable: "Items", rightTable: "GameItems", leftField: "ItemId", rightField: "ItemId"});
 
-            let fields = ["GamePlaceItemId", "GamePlaceItems.PlaceId", "GamePlaceItems.GameItemId", "GamePlaceItems.GameId", "Items.Description", "TotalUses", "DependantItemId"];
+            let fields = ["GamePlaceItemId", "GamePlaceItems.PlaceId", "GamePlaceItems.GameItemId", "GamePlaceItems.GameId", "Items.Description", "TotalUses", "DependantItemId", "Items.ItemId"];
 
             return context.read("GamePlaceItems", [{key: "GamePlaceItems.GameId", value: gameId}], joins, fields);
         }).then(results => {
