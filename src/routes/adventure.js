@@ -17,9 +17,7 @@ router.post('/new-adventure/:adventureId', (req, res, next) => {
 router.use('/:gameId', (req, res, next) => {
     if(!res.locals.gameContext) res.locals.gameContext = {};
 
-    gameBl.loadGameBy(req.params.gameId).then(game => {
-        res.locals.gameContext.player = game.player;
-        res.locals.gameContext.place = game.place;
+    gameBl.getAdventureTemplateData(req.params.gameId).then(game => {
         req.gameTitle = game.title;
         req.backgroundImage = game.backgroundImage;
         req.tilesBackground = game.tilesBackground;

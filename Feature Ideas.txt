@@ -41,7 +41,7 @@ C) Technical Debt
     1.1 How to unit test promises.
 2. Consider relocating and/or renaming "routes" folder.
 DONE - 3. Move sql statements building code into its own file.
-4. Create two methods to get adventure details:
+DONE - 4. Create two methods to get adventure details:
     4.1 Return basic data for the template.
     4.2 Return all data for the selected game.
 5. Add defensive programming validation in client side code.

@@ -63,13 +63,14 @@ var games = [
 
 var context = require('./theCryptContext');
 
-var getGame = (gameId) => {
-    return new Promise((resolve, reject) => {
-        resolve(games[gameId]);
-    });
-};
+module.exports.getAdventureTemplateData = (gameId) => {
+    let joins = [];
+    joins.push({join: "INNER JOIN", leftTable: "Games", rightTable: "Adventures", leftField: "AdventureId", rightField: "AdventureId"});
 
-module.exports.getGame = getGame;
+    let fields = ["Adventures.Title AS title", "BackgroundFile AS backgroundImage", "TilesBackgroundFile AS tilesBackground"];
+
+    return context.read("Adventures", [{key: "GameId", value: gameId}], joins, fields);
+};
 
 module.exports.getGameBy = (gameId) => {
     let gameFilter = [{key: "Games.GameId", value: gameId}]

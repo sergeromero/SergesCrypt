@@ -2,6 +2,14 @@
 
 var gameDal = require('../DAL/gameRepository');
 
+exports.getAdventureTemplateData = (gameId) => {
+    return new Promise((resolve, reject) => {
+        return gameDal.getAdventureTemplateData(gameId).then(results => {
+            resolve(results[0]);
+        });
+    });
+};
+
 exports.startNewGame = (adventureId, userId, characterName) => {
     return gameDal.startNewAdventure(adventureId);
 };
