@@ -12,6 +12,8 @@ var theCrypt;
 			var inPlay = false;
 			
 			var init = function(){
+				theCrypt.CryptSpinner.spin(document.getElementsByTagName("BODY")[0]);
+
 				let httpRequester = new theCrypt.RAL.HttpRequester();
 				let href = window.location.href;
 				var urlSections = href.split('/');
@@ -29,6 +31,8 @@ var theCrypt;
 					inPlay = true;
 
 					render();
+
+                    theCrypt.CryptSpinner.stop();
 				});
 			};
 			

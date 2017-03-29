@@ -12,23 +12,31 @@ var theCrypt;
 
             var getAdventureDetails = function(adventureId){
                 const url = `${constants.adventureDetailsUrl}${adventureId}`;
+
+                theCrypt.CryptSpinner.spin(document.getElementsByTagName("BODY")[0]);
                 
                 httpRequester.get(url).then(function(response){
                     const details = JSON.parse(response);
                     
                     theCrypt.Views.newAdventure.render(details);
+
+                    theCrypt.CryptSpinner.stop();
                 });
             };
 
             var startNewAdventure = function(adventureId){
                 const url = `${constants.newAdventureUrl}${adventureId}`;
 
-               httpRequester.post(url).then(function(response){
+                theCrypt.CryptSpinner.spin(document.getElementsByTagName("BODY")[0]);
+
+                httpRequester.post(url).then(function(response){
                     const data = JSON.parse(response);
 
                     if(data.redirect){
                         window.location.href = `${constants.homeUrl}${data.redirect}`;
-                    }                    
+                    }
+
+                    theCrypt.CryptSpinner.stop();
                 });
             };
 
