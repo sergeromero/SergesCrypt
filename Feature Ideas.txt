@@ -1,24 +1,59 @@
-- Hidden and lock doors as exit challenges.
-- Adding health/stamina to the challenges so as for them to be conquered with multiple actions.
-- Add ineficient solutions for the challenges. Separate the Requirement to its own table.
-- Posibility to use items on the player to heal or to display funny messages.
-- Capability for the challenges to move around and chase the player.
-- Caching of map places instead of getting the whole map in one shot.
-- Ability to save progress.
-- Log in and log out.
-- Security/use of sessions.
-- Ability to carry items tied to level of health/stamina.
-- Ability to drop items.
-- Restart the game from the beginning.
-- Restart the game from the last save event.
-- Use web controls instead of text commands.
-- Validation of data.
-- Protection against SQL injection.
-- Protection against cross-site scripting.
-- Add a spinner for long waiting tasks.
-- Multiple challenges per exit:
-    - Once the player tries an exit all challenges are activated and act at different time intervals (level hard).
-    - Posibility to use an item to a specific challenge
-- Multiple levels of difficulty:
-    - First level - specific to the adventure.
-    - Second level - at the user's settings level.
+A) Functional Requirements:
+
+    I. Game Features:
+        1. Hidden and lock doors as exit challenges.
+        2. Adding health/stamina to the challenges so as for them to be conquered with multiple actions.
+        3. Add ineficient solutions for the challenges. Separate the Requirement to its own table.
+        4. Posibility to use items on the player to heal or to display funny messages.
+        5. Capability for the challenges to move around and chase the player.
+        6. Ability to carry items tied to level of health/stamina.
+        7. Ability to drop items.
+        8. Multiple challenges per exit:
+            8.1 Once the player tries an exit all challenges are activated and act at different time intervals (level hard).
+            8.2 Posibility to use an item on a targeted challenge/threat
+        9. Multiple levels of difficulty:
+            9.1 First level - specific to the adventure.
+            9.2 Second level - at the user's settings level.
+
+    II. User Features:
+        1. Ability to save progress.
+        2. Log in and log out.
+        3. Restart the game from the beginning.
+        4. Restart the game from the last save event.
+        5. List of player's "In Progress" adventures.
+        6. Ability to delete selected "In Progress" adventure.
+        7. 
+
+B) Non - functional Requirement:
+
+1. Caching of map places instead of getting the whole map in one shot.
+2. Security/use of sessions.
+3. Use web controls instead of text commands.
+4. Validation of data.
+5. Protection against SQL injection.
+6. Protection against cross-site scripting.
+7. Add a spinner for long waiting tasks.
+8. 
+
+C) Technical Debt
+
+1. Cover all code with unit tests:
+    1.1 How to unit test promises.
+2. Consider relocating and/or renaming "routes" folder.
+3. Move sql statements building code into its own file.
+4. Create two methods to get adventure details:
+    4.1 Return basic data for the template.
+    4.2 Return all data for the selected game.
+5. Add defensive programming validation in client side code.
+6. Remove port number from magic strings:
+    6.1 Research how to make node environment variables accessible to client side code.
+
+D) Bugs and Issues (Both potential and verified)
+
+1. Starting place for a game should be from the Game tables not Adventure ones.
+
+E) UAT / Data Testing
+
+1. Create data for other adventures to verify multiple adventure choices functionality.
+
+ 
