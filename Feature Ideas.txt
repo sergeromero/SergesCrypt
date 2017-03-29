@@ -32,7 +32,7 @@ B) Non - functional Requirement:
 4. Validation of data.
 5. Protection against SQL injection.
 6. Protection against cross-site scripting.
-DONE - 7. Add a spinner for long waiting tasks.
+DONE - 7. Add a spinner for long waiting tasks. //Used spin.js.org
 8. 
 
 C) Technical Debt
