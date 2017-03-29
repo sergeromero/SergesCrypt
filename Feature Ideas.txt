@@ -14,10 +14,11 @@ A) Functional Requirements:
         9. Multiple levels of difficulty:
             9.1 First level - specific to the adventure.
             9.2 Second level - at the user's settings level.
+        10. Add Character Name field when choosing to enter an adventure.
 
     II. User Features:
         1. Ability to save progress.
-        2. Log in and log out.
+        COMMITTED - 2. Log in and log out.
         3. Restart the game from the beginning.
         4. Restart the game from the last save event.
         5. List of player's "In Progress" adventures.
@@ -27,7 +28,7 @@ A) Functional Requirements:
 B) Non - functional Requirement:
 
 1. Caching of map places instead of getting the whole map in one shot.
-2. Security/use of sessions.
+COMMITTED - 2. Security/use of sessions.
 3. Use web controls instead of text commands.
 4. Validation of data.
 5. Protection against SQL injection.
