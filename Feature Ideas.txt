@@ -15,20 +15,26 @@ A) Functional Requirements:
             9.1 First level - specific to the adventure.
             9.2 Second level - at the user's settings level.
         10. Add Character Name field when choosing to enter an adventure.
+        11. Add verbs/actions:
+            11.1 Read.
+            11.2 Light/turn-on.
+            11.3 Climb.
+            11.4 Move.
+            11.5 Eat/drink.
 
     II. User Features:
         1. Ability to save progress.
-        COMMITTED - 2. Log in and log out.
+        2. Log in and log out.
         3. Restart the game from the beginning.
         4. Restart the game from the last save event.
         5. List of player's "In Progress" adventures.
         6. Ability to delete selected "In Progress" adventure.
-        7. 
+        7. Add section with list of available commands and/or help capability.
 
 B) Non - functional Requirement:
 
 1. Caching of map places instead of getting the whole map in one shot.
-COMMITTED - 2. Security/use of sessions.
+2. Security/use of sessions.
 3. Use web controls instead of text commands.
 4. Validation of data.
 5. Protection against SQL injection.
@@ -48,6 +54,41 @@ DONE - 4. Create two methods to get adventure details:
 5. Add defensive programming validation in client side code.
 6. Remove port number from magic strings:
     6.1 Research how to make node environment variables accessible to client side code.
+COMMITED - 7. Fix routes to account for all pages and services actions:
+    7.1 Home router:
+        a) Home - unauthenticated: route "/" Page with login/register sections.
+            - Login: user name and password fields - login button.
+            - Registration: user name, email and password fields - register button.
+        b) Register: route "/register" Service - POST to register a new account
+            - Validates selected user name and email are unused.
+            - Redirects to new account page.
+        c) New Account: route "/new-account" Page that captures the new account information.
+            - Asks for missing info.
+            - Confirms password.
+        d) Create account: route "/create-account" Service - POST
+            - Saves new account data into DB.
+            - Redirects to authenticated home.
+        e) Authenticate: route "/authenticate" Service - POST 
+            - Authenticates / validates user name and password.
+            - Redirects to authenticated home.
+        f) Home - authenticated: route "/" Page 
+            - Displays button/link/whatever to start a new adventure.
+            - Displays list of user's in progress adventures.
+    7.2 Adventure router:
+        a) List of user's in progress adventures: route "adventure/current-adventures" Service - POST
+            - Gets list of user's in progress adventures.
+            - Adventure name, character name, character health and current location.
+        b) New adventure: route "adventure/new-adventure" Page to select a new adventure to start.
+        c) Get adventure details: route "adventure/get-introduction" Service - GET 
+            - Gets the details of the adventure chosen to start a new game.
+        d) Start new adventure: route "adventure/start-new" Service - POST
+            - Creates a new game instance of the selected adventure template.
+        e) Load game: route "adventure/load/:gameId Service - GET
+            - Gets the selected game data.
+            - Redirects to current game page.
+        f) Current game: route "adventure/:userName/:gameId" Page - The game being played
+        g) Delete game: route "adventure/delete/:gameId" Service - POST/Delete
+        h) Restart game: route "adventure/restart/:gameId" Service - POST
 
 D) Bugs and Issues (Both potential and verified)
 
