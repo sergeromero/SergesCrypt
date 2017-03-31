@@ -5,10 +5,14 @@ var theCrypt;
     (function(){
         'use script';
 
-        this.newAdventureUrl = 'http://localhost:3033/adventure/start-new/';
-        this.adventureDetailsUrl = 'http://localhost:3033/adventure/get-introduction/';
-        this.homeUrl = 'http://localhost:3033/';
-        this.gameUrl = 'http://localhost:3033/game/';
+        this.newAdventureUrl = 'adventure/start-new/';
+        this.adventureDetailsUrl = 'adventure/get-introduction/';
+        this.gameUrl = 'game/';
+
+        this.getUrl = (url) => {
+            let location = window.location;
+            return `${location.protocol}//${location.host}/${url ? url : ""}`;
+        };        
 
     }).apply(theCrypt.Constants || (theCrypt.Constants = {}));
 })(theCrypt || (theCrypt = {}));

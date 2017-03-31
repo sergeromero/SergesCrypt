@@ -22,14 +22,13 @@ app.set('view engine', 'handlebars');
 app.set('port', process.env.PORT || 3033);
 
 app.use(require('body-parser').urlencoded({extended: true}));
+var credentials = require('./credentials');
 app.use(require('cookie-parser')(credentials.cookieSecret));
 app.use(require('express-session')({
     resave: false,
     saveUninitialized: false,
     secret: credentials.cookieSecret
 }));
-
-var credentials = require('./credentials');
 var home = require('./routes/home');
 var adventure = require('./routes/adventure');
 var gameService = require('./routes/gameService');

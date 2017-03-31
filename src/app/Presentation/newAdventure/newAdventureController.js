@@ -11,7 +11,7 @@ var theCrypt;
             let httpRequester = new theCrypt.RAL.HttpRequester();
 
             var getAdventureDetails = function(adventureId){
-                const url = `${constants.adventureDetailsUrl}${adventureId}`;
+                const url = `${constants.getUrl(constants.adventureDetailsUrl)}${adventureId}`;
 
                 theCrypt.CryptSpinner.spin(document.getElementsByTagName("BODY")[0]);
                 
@@ -25,7 +25,7 @@ var theCrypt;
             };
 
             var startNewAdventure = function(adventureId){
-                const url = `${constants.newAdventureUrl}${adventureId}`;
+                const url = `${constants.getUrl(constants.newAdventureUrl)}${adventureId}`;
 
                 theCrypt.CryptSpinner.spin(document.getElementsByTagName("BODY")[0]);
 
@@ -33,7 +33,7 @@ var theCrypt;
                     const data = JSON.parse(response);
 
                     if(data.redirect){
-                        window.location.href = `${constants.homeUrl}${data.redirect}`;
+                        window.location.href = `${constants.getUrl()}${data.redirect}`;
                     }
 
                     theCrypt.CryptSpinner.stop();

@@ -18,7 +18,7 @@ var theCrypt;
 				let href = window.location.href;
 				var urlSections = href.split('/');
 				var gameId = urlSections[urlSections.length - 1];
-				var url = `${constants.gameUrl}${gameId}`;
+				var url = `${constants.getUrl(constants.gameUrl)}${gameId}`;
 
 				httpRequester.get(url).then(function(response){
 					var gameData = JSON.parse(response);
