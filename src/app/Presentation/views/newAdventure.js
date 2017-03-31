@@ -17,7 +17,7 @@ var theCrypt;
                     btn.addEventListener("click", function(){
                         var adventureId = document.getElementById('adventureId').value;
                         
-                        theCrypt.Controllers.home.startNewAdventure(adventureId);
+                        theCrypt.Controllers.newAdventure.startNewAdventure(adventureId);
                     });
                 }
             };

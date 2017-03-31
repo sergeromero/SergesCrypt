@@ -54,7 +54,7 @@ DONE - 4. Create two methods to get adventure details:
 5. Add defensive programming validation in client side code.
 6. Remove port number from magic strings:
     6.1 Research how to make node environment variables accessible to client side code.
-COMMITED - 7. Fix routes to account for all pages and services actions:
+IN PROGRESS - 7. Fix routes to account for all pages and services actions:
     7.1 Home router:
         a) Home - unauthenticated: route "/" Page with login/register sections.
             - Login: user name and password fields - login button.
@@ -75,13 +75,13 @@ COMMITED - 7. Fix routes to account for all pages and services actions:
             - Displays button/link/whatever to start a new adventure.
             - Displays list of user's in progress adventures.
     7.2 Adventure router:
-        a) List of user's in progress adventures: route "adventure/current-adventures" Service - POST
+        a) List of user's in progress adventures: route "adventure/current-adventures" Service - GET
             - Gets list of user's in progress adventures.
             - Adventure name, character name, character health and current location.
         b) New adventure: route "adventure/new-adventure" Page to select a new adventure to start.
         c) Get adventure details: route "adventure/get-introduction" Service - GET 
             - Gets the details of the adventure chosen to start a new game.
-        d) Start new adventure: route "adventure/start-new" Service - POST
+        d) Start new adventure: route "adventure/start-new/:adventureId" Service - POST
             - Creates a new game instance of the selected adventure template.
         e) Load game: route "adventure/load/:gameId Service - GET
             - Gets the selected game data.

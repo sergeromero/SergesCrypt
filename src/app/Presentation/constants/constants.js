@@ -5,8 +5,8 @@ var theCrypt;
     (function(){
         'use script';
 
-        this.newAdventureUrl = 'http://localhost:3033/adventure/new-adventure/';
-        this.adventureDetailsUrl = 'http://localhost:3033/';
+        this.newAdventureUrl = 'http://localhost:3033/adventure/start-new/';
+        this.adventureDetailsUrl = 'http://localhost:3033/adventure/get-introduction/';
         this.homeUrl = 'http://localhost:3033/';
         this.gameUrl = 'http://localhost:3033/game/';
 

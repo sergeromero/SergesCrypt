@@ -7,7 +7,7 @@ var theCrypt;
 
         let constants = theCrypt.Constants;
 
-        var home = function(){
+        var newAdventure = function(){
             let httpRequester = new theCrypt.RAL.HttpRequester();
 
             var getAdventureDetails = function(adventureId){
@@ -46,7 +46,7 @@ var theCrypt;
             };
         };
 
-        this.home = home();
+        this.newAdventure = newAdventure();
 	}).apply(theCrypt.Controllers || (theCrypt.Controllers = {}));
 })(theCrypt || (theCrypt = {}));
 

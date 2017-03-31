@@ -3,33 +3,22 @@
 var express = require('express');
 var router = express.Router();
 
-var repository = require('../app/DAL/gameRepository');
 
-router.get('/', (req, res, next) => {
-    repository.getAvailableAdventures().then(adventures => {
-        var results = [];
 
-        adventures.forEach(adventure => {
-            results.push({"adventure": adventure.Title, "adventureId": adventure.AdventureId});            
-        });
-
-        //var data = JSON.parse(JSON.stringify(results));
-        var data = { "adventures": results.slice() };
-        
-        res.render('home', data);
-    }).catch(err => {
-        next(err);
-    });
+router.post("/register", (req, res, next) => {
+    res.send("Register route");
 });
 
-router.get('/:adventureId', (req, res, next) => {
-    repository.getAdventureDetails(req.params.adventureId).then(adventure => {
-        var data = { "adventureDetails": adventure };
+router.get("/new-account", (req, res, next) => {
+    res.send("new-account route");
+});
 
-        res.json(data);
-    }).catch(err => {
-        next(err);
-    });
+router.post("/create-account", (req, res, next) => {
+    res.send("create-account route");
+});
+
+router.post("/authenticate", (req, res, next) => {
+    res.send("authenticate route");
 });
 
 module.exports = router;
