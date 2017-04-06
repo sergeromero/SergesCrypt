@@ -15,7 +15,8 @@
     "test": "istanbul cover node_modules\\jasmine\\bin\\jasmine.js",
     "unit": "npm run lint && npm test",
     "buildDev": "npm run unit",
-    "start": "node crypt"
+    "start": "node crypt",
+    "watch": "nodemon crypt.js"
   },
   "author": "Sergio Romero",
   "license": "ISC",
@@ -35,6 +36,7 @@
   "devDependencies": {
     "istanbul": "^0.4.5",
     "jasmine": "^2.5.3",
-    "jshint": "^2.9.4"
+    "jshint": "^2.9.4",
+    "nodemon": "^1.11.0"
   }
 }

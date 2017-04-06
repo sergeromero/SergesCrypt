@@ -89,6 +89,9 @@ DONE - 7. Fix routes to account for all pages and services actions:
         f) Current game: route "adventure/:userName/:gameId" Page - The game being played
         g) Delete game: route "adventure/delete/:gameId" Service - POST/Delete
         h) Restart game: route "adventure/restart/:gameId" Service - POST
+8. Encapsulate {{{body}}} place holder of main layout inside a defensive
+    8.1 Set the encapsulated div background to the "home" image.
+9. Move the home image style from the html into the stylesheet so that it can be reused by non-adventure related pages.
 
 D) Bugs and Issues (Both potential and verified)
 
