@@ -20,14 +20,20 @@ router.post("/create-account", (req, res, next) => {
 router.post("/authenticate", (req, res, next) => {
     var user = req.body.userName;
     var pwd = req.body.password;
-
-    console.log(`User Name: ${user} and Password: ${pwd}`);
-    req.session.trust = 'XCO16OCA5';
-    res.send("authenticate route");
+    
+    req.session.userId = 'XCO16OCA5';
+    req.session.userName = user;
+    res.redirect("/");
 });
 
 router.get("/", (req, res, next) => {
-    res.render("login");
+    if(req.session.userId){
+        res.render("home");
+    }
+    else
+    {
+        res.render("login");
+    }
 });
 
 module.exports = router;
