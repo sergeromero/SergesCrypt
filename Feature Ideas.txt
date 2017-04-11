@@ -24,7 +24,8 @@ A) Functional Requirements:
 
     II. User Features:
         1. Ability to save progress.
-        COMMITED - 2. Log in and log out.
+        IN PROGRESS - 2. Log in and log out.
+            2.1. Display the spinner during authentication.
         3. Restart the game from the beginning.
         4. Restart the game from the last save event.
         5. List of player's "In Progress" adventures.
@@ -34,7 +35,7 @@ A) Functional Requirements:
 B) Non - functional Requirement:
 
 1. Caching of map places instead of getting the whole map in one shot.
-IN PROGRESS - 2. Security/use of sessions.
+DONE - 2. Security/use of sessions.
 3. Use web controls instead of text commands.
 4. Validation of data.
 5. Protection against SQL injection.

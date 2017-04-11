@@ -1,9 +1,9 @@
 'use strict';
 
-var express = require('express');
-var router = express.Router();
+let express = require('express');
+let router = express.Router();
 
-
+let userBl = require('../app/Business/userBl');
 
 router.post("/register", (req, res, next) => {
     res.send("Register route");
@@ -20,10 +20,15 @@ router.post("/create-account", (req, res, next) => {
 router.post("/authenticate", (req, res, next) => {
     var user = req.body.userName;
     var pwd = req.body.password;
-    
-    req.session.userId = 'XCO16OCA5';
-    req.session.userName = user;
-    res.redirect("/");
+
+    userBl.areCredentialsValid(user, pwd).then(result => {
+        if(result){
+            req.session.userId = result;
+            req.session.userName = user;
+        }
+
+        res.redirect("/");
+    });
 });
 
 router.get("/", (req, res, next) => {
@@ -32,6 +37,7 @@ router.get("/", (req, res, next) => {
     }
     else
     {
+        ///TODO: Set message for failed authentication attempt. Use handlebars for this.
         res.render("login");
     }
 });
