@@ -33,6 +33,7 @@ A) Functional Requirements:
         7. Add section with list of available commands and/or help capability.
         8. Add user id filter when getting an "In Progress" game.
         9. Log out.
+        10. Register to create a new account.
 
 B) Non - functional Requirement:
 
@@ -43,7 +44,7 @@ DONE - 2. Security/use of sessions.
 5. Protection against SQL injection.
 6. Protection against cross-site scripting.
 DONE - 7. Add a spinner for long waiting tasks. //Used spin.js.org
-8. 
+8. Style the login page.
 
 C) Technical Debt
 
