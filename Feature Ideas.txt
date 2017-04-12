@@ -24,13 +24,15 @@ A) Functional Requirements:
 
     II. User Features:
         1. Ability to save progress.
-        IN PROGRESS - 2. Log in and log out.
+        IN PROGRESS - 2. Log in.
             2.1. Display the spinner during authentication.
         3. Restart the game from the beginning.
         4. Restart the game from the last save event.
         5. List of player's "In Progress" adventures.
         6. Ability to delete selected "In Progress" adventure.
         7. Add section with list of available commands and/or help capability.
+        8. Add user id filter when getting an "In Progress" game.
+        9. Log out.
 
 B) Non - functional Requirement:
 
@@ -90,13 +92,13 @@ DONE - 7. Fix routes to account for all pages and services actions:
         f) Current game: route "adventure/:userName/:gameId" Page - The game being played
         g) Delete game: route "adventure/delete/:gameId" Service - POST/Delete
         h) Restart game: route "adventure/restart/:gameId" Service - POST
-8. Encapsulate {{{body}}} place holder of main layout inside a defensive
+8. Encapsulate {{{body}}} place holder of main layout inside a div.
     8.1 Set the encapsulated div background to the "home" image.
 9. Move the home image style from the html into the stylesheet so that it can be reused by non-adventure related pages.
 
 D) Bugs and Issues (Both potential and verified)
 
-1. Starting place for a game should be from the Game tables not Adventure ones.
+    1. Starting place for a game should be from the Game tables not Adventure ones.
 
 E) UAT / Data Testing
 

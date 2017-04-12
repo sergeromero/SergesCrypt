@@ -1,15 +1,11 @@
 'use strict';
 
-let express = require('express');
-let router = express.Router();
-
-router.use((req, res, next) => {
+module.exports.isAuthenticated = (req, res, next) => {
     if(!req.session.userId){
+        req.session.redirectTo = req.originalUrl;
         res.redirect('/');
     }
     else{
         next();
-    }
-});
-
-module.exports = router;
+    }    
+};

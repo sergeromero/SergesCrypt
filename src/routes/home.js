@@ -18,8 +18,10 @@ router.post("/create-account", (req, res, next) => {
 });
 
 router.post("/authenticate", (req, res, next) => {
-    var user = req.body.userName;
-    var pwd = req.body.password;
+    let user = req.body.userName;
+    let pwd = req.body.password;
+    let redirectTo = req.session.redirectTo;
+    delete req.session.redirectTo;
 
     userBl.areCredentialsValid(user, pwd).then(result => {
         if(result){
@@ -29,13 +31,12 @@ router.post("/authenticate", (req, res, next) => {
         else{
             req.session.failedAuthentication = true;
         }
-
-        res.redirect("/");
+        
+        res.redirect(redirectTo ? redirectTo : '/');
     });
 });
 
 router.get("/", (req, res, next) => {
-    //console.log('in the home route');
     let failedAuthentication = req.session.failedAuthentication;
     delete req.session.failedAuthentication;
 

@@ -35,19 +35,8 @@ let home = require('./routes/home');
 let adventure = require('./routes/adventure');
 let gameService = require('./routes/gameService');
 
-//app.use(security);
-/*
-app.use((req, res, next) => {
-    if(!req.session.userId){
-        res.redirect('/');
-    }
-    else{
-        next();
-    }
-});
-*/
-app.use('/adventure', adventure);
-app.use('/game', gameService);
+app.use('/adventure', security.isAuthenticated, adventure);
+app.use('/game', security.isAuthenticated, gameService);
 app.use('/', home);
 
 app.use((req, res) => {
