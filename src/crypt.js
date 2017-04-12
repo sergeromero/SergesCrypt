@@ -29,10 +29,23 @@ app.use(require('express-session')({
     saveUninitialized: false,
     secret: credentials.cookieSecret
 }));
-var home = require('./routes/home');
-var adventure = require('./routes/adventure');
-var gameService = require('./routes/gameService');
 
+let security = require('./routes/security');
+let home = require('./routes/home');
+let adventure = require('./routes/adventure');
+let gameService = require('./routes/gameService');
+
+//app.use(security);
+/*
+app.use((req, res, next) => {
+    if(!req.session.userId){
+        res.redirect('/');
+    }
+    else{
+        next();
+    }
+});
+*/
 app.use('/adventure', adventure);
 app.use('/game', gameService);
 app.use('/', home);

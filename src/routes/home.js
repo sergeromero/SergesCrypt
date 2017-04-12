@@ -26,19 +26,25 @@ router.post("/authenticate", (req, res, next) => {
             req.session.userId = result;
             req.session.userName = user;
         }
+        else{
+            req.session.failedAuthentication = true;
+        }
 
         res.redirect("/");
     });
 });
 
 router.get("/", (req, res, next) => {
+    //console.log('in the home route');
+    let failedAuthentication = req.session.failedAuthentication;
+    delete req.session.failedAuthentication;
+
     if(req.session.userId){
         res.render("home");
     }
     else
     {
-        ///TODO: Set message for failed authentication attempt. Use handlebars for this.
-        res.render("login");
+        res.render("login", { failedAuthMessageClass: failedAuthentication ? 'show' : 'hide'});
     }
 });
 

@@ -156,3 +156,15 @@ button:active{
   transition: background-color 0.3s ease-in,
               border-color 0.3s ease-in;
 }
+
+.failed-login-message{
+  color: white;
+}
+
+.show{
+  display: inline;
+}
+
+.hide{
+  display: none;
+}

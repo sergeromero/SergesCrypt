@@ -4,7 +4,7 @@ var userRepository = require('../DAL/userRepository');
 
 exports.areCredentialsValid = (userName, password) => {
     return new Promise((resolve, reject) => {
-        return userRepository.getUserCountBy(userName, password).then(result => {
+        return userRepository.getUserIdBy(userName, password).then(result => {
             if(result.length === 0){
                 resolve(false);
             }
