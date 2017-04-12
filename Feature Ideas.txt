@@ -24,7 +24,7 @@ A) Functional Requirements:
 
     II. User Features:
         1. Ability to save progress.
-        IN PROGRESS - 2. Log in.
+        DONE - 2. Log in.
             2.1. Display the spinner during authentication.
         3. Restart the game from the beginning.
         4. Restart the game from the last save event.
