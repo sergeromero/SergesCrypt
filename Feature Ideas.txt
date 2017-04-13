@@ -45,6 +45,7 @@ DONE - 2. Security/use of sessions.
 6. Protection against cross-site scripting.
 DONE - 7. Add a spinner for long waiting tasks. //Used spin.js.org
 DONE - 8. Style the login section of home page.
+9. Style the registration section of the home page.
 
 C) Technical Debt
 
