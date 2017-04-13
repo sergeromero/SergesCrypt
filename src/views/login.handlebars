@@ -2,9 +2,11 @@
     <div id="views">
         <div id="login">
             <form action="/authenticate" method="post">
-                Your name: <input type="text" name="userName"><br>
-                Password: <input type="password" name="password"><br>
-                <button id="loginButton" type="submit">Submit</button>
+                <label for="userName">User name:</label><input class="user-data-field" type="text" name="userName" id="userName"><br>
+                <label for="password">Password:</label><input class="user-data-field" type="password" name="password" id="password"><br>
+                <div class="separator">
+                    <button id="loginButton" type="submit">Submit</button>
+                </div>
             </form>
             <div>
                 <span class="failed-login-message {{failedAuthMessageClass}}">User Name or Password are incorrect. Please try again.</span>
