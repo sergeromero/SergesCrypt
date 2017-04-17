@@ -33,7 +33,7 @@ A) Functional Requirements:
         7. Add section with list of available commands and/or help capability.
         8. Add user id filter when getting an "In Progress" game.
         9. Log out.
-        10. Register to create a new account.
+        IN PROGRESS - 10. Register to create a new account.
 
 B) Non - functional Requirement:
 

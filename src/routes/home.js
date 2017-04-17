@@ -6,7 +6,24 @@ let router = express.Router();
 let userBl = require('../app/Business/userBl');
 
 router.post("/register", (req, res, next) => {
-    res.send("Register route");
+    let user = req.body.newUserName;
+    let pwd = req.body.newPassword;
+    let email = req.body.email;
+
+    if(user === 'test'){
+        req.session.invalidRegistration = true;
+        req.session.message = "This user name is no longer available. Please choose another one.";
+        res.redirect('/');
+    }
+    else if(email === 'test'){
+        req.session.invalidRegistration = true;
+        req.session.message = "There is already an account associated with this email."
+        res.redirect('/');
+    }
+    else
+    {
+        res.send("Register route");
+    }
 });
 
 router.get("/new-account", (req, res, next) => {
@@ -37,15 +54,30 @@ router.post("/authenticate", (req, res, next) => {
 });
 
 router.get("/", (req, res, next) => {
-    let failedAuthentication = req.session.failedAuthentication;
-    delete req.session.failedAuthentication;
-
     if(req.session.userId){
         res.render("home");
     }
+    else if(req.session.invalidRegistration){
+        let invalidRegistration = req.session.invalidRegistration;
+        let message = req.session.message;
+
+        delete req.session.invalidRegistration;
+        delete req.session.message;
+
+        res.render("login", {
+            failedRegistrationMessageClass : invalidRegistration ? 'show' : 'hide', 
+            "registrationErrorMessage": message,
+            failedAuthMessageClass: 'hide'
+        });
+    }
     else
     {
-        res.render("login", { failedAuthMessageClass: failedAuthentication ? 'show' : 'hide'});
+        let failedAuthentication = req.session.failedAuthentication;
+        delete req.session.failedAuthentication;
+        res.render("login", { 
+            failedAuthMessageClass: failedAuthentication ? 'show' : 'hide',
+            failedRegistrationMessageClass: 'hide'
+        });
     }
 });
 

@@ -1,6 +1,7 @@
 <div id="container" class="general-container">
     <div id="views">
         <div id="login">
+            <h3>Continue your adventure</h3>
             <form action="/authenticate" method="post">
                 <label for="userName">User name:</label><input class="user-data-field" type="text" name="userName" id="userName"><br>
                 <label for="password">Password:</label><input class="user-data-field" type="password" name="password" id="password"><br>
@@ -12,7 +13,20 @@
                 <span class="failed-login-message {{failedAuthMessageClass}}">User Name or Password are incorrect. Please try again.</span>
             </div>
         </div>
-        <div id="register"></div>
+        <div id="register">
+            <h3>Will you dare enter?</h3>
+            <form action="/register" method="post">
+                <label for="newUserName">User name:</label><input type="text" class="user-data-field" name="newUserName" id="newUserName"><br>
+                <label for="email">Email:</label><input type="text" class="user-data-field" name="email" id="email"><br>
+                <label for="newPassword">Password:</label><input type="password" class="user-data-field" name="newPassword" id="newPassword"><br>
+                <div class="separator">
+                    <button id="registrationButton" type="submit">I dare enter The Crypt</button>
+                </div>
+            </form>
+            <div>
+                <span class="failed-login-message {{failedRegistrationMessageClass}}">{{registrationErrorMessage}}</span>
+            </div>
+        </div>
     </div>
 </div>
 
