@@ -22,7 +22,7 @@ var getFields = (fields) => {
 var getFieldPlaceholders = (fields) => {
     return fields.map(f => {
         return "?";
-    })
+    });
 };
 
 var getParsedFilters = (filters) => {
@@ -46,7 +46,7 @@ var getParsedFilters = (filters) => {
 var getInsertFieldNames = (fields) => {
     return fields.map(f => {
         return f.key;
-    })
+    });
 };
 
 var getJoins = (joins) => {
@@ -79,7 +79,8 @@ exports.getSelectSql = (table, filters, joins, fields) => {
                ${parsedJoins} 
                ${parsedFilters}`;
 
-    return sql;
+    //REMOVES LINE BREAKS AND MULTIPLE SPACES.
+    return sql.replace(/\s\s+/g, ' ').trim();
 };
 
 exports.getInsertSql = (table, fields) => {

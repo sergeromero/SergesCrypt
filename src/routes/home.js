@@ -17,7 +17,7 @@ router.post("/register", (req, res, next) => {
     }
     else if(email === 'test'){
         req.session.invalidRegistration = true;
-        req.session.message = "There is already an account associated with this email."
+        req.session.message = "There is already an account associated with this email.";
         res.redirect('/');
     }
     else

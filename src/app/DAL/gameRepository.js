@@ -73,7 +73,7 @@ module.exports.getAdventureTemplateData = (gameId) => {
 };
 
 module.exports.getGameBy = (gameId) => {
-    let gameFilter = [{key: "Games.GameId", value: gameId}]
+    let gameFilter = [{key: "Games.GameId", value: gameId}];
     var gameData = {};
 
     return new Promise((resolve, reject) => {

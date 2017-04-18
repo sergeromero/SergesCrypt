@@ -46,7 +46,7 @@ router.post('/start-new/:adventureId', (req, res, next) => {
     });
 });
 
-router.get('/in-progress/:gameId', (req, res) => {
+router.get('/in-progress/:gameId', (req, res, next) => {
     gameBl.getAdventureTemplateData(req.params.gameId).then(game => {
         res.render('adventure', { "title": game.title, "backgroundImage": game.backgroundImage, "tilesBackground": game.tilesBackground });
     }).catch(err => {

@@ -48,7 +48,7 @@ var theCrypt;
                     };
 
                     xhr.send();
-                })
+                });
             };
         };
 

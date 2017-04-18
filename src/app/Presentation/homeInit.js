@@ -9,4 +9,4 @@ $(document).ready(() => {
     let registrationButton = document.getElementById('registrationButton');
     loginButton.addEventListener("click", spin);
     registrationButton.addEventListener("click", spin);
-})
+});

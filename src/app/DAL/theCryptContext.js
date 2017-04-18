@@ -10,7 +10,7 @@ var connectDB = () => {
     return new Promise((resolve, reject) => {
         if(db) return resolve(db);
 
-        var dbFile = "theCrypt.db"
+        var dbFile = "theCrypt.db";
 
         db = new sqlite.Database(dbFile, sqlite.OPEN_READWRITE, err => {
             if(err) reject(err);
@@ -39,7 +39,7 @@ exports.read = function(table, filters, joins, ...fields){
 
 exports.insert = function(table, fields){
     let sql = sqlBuilder.getInsertSql(table, fields);
-    let fieldValues = sqlBuilder.getFieldValues(filters);
+    let fieldValues = sqlBuilder.getFieldValues(fields);
 
     return connectDB().then(() => {
         return new Promise((resolve, reject) => {
@@ -74,7 +74,7 @@ exports.insertIntoSelect = function(insertTable, selectTable, insertFields, sele
                 else resolve();
             });
         }).then(() => {
-            return getLastInsertedId(insertTable);;
+            return getLastInsertedId(insertTable);
         });
     });
 };
