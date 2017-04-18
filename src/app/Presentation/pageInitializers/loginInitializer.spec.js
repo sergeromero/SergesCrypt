@@ -6,10 +6,10 @@ describe('loginInitializer', () => {
     let initializer = theCrypt.Initializers.Login;
     let spinSpy;
     
-    global.document = jsdom.jsdom('<body><button id="loginButton" type="submit"></button><button id="registrationButton" type="submit"></button></body>');
-    global.window = document.defaultView;
-
     beforeEach(() => {
+        global.document = jsdom.jsdom('<body><button id="loginButton" type="submit"></button><button id="registrationButton" type="submit"></button></body>');
+        global.window = document.defaultView;
+
         spinSpy = {
             spin: function(){}
         };
