@@ -4,26 +4,31 @@ let express = require('express');
 let router = express.Router();
 
 let userBl = require('../app/Business/userBl');
+var enums = require('../app/Common/enums');
 
 router.post("/register", (req, res, next) => {
     let user = req.body.newUserName;
     let pwd = req.body.newPassword;
     let email = req.body.email;
 
-    if(user === 'test'){
-        req.session.invalidRegistration = true;
-        req.session.message = "This user name is no longer available. Please choose another one.";
-        res.redirect('/');
-    }
-    else if(email === 'test'){
-        req.session.invalidRegistration = true;
-        req.session.message = "There is already an account associated with this email.";
-        res.redirect('/');
-    }
-    else
-    {
-        res.send("Register route");
-    }
+    userBl.registerUser(user, email, pwd).then(result => {
+        res.send('Result from BL: ' + result);
+    }, result => {
+        if(result === enums.RegistrationResults.UserNameUnavailable){
+            req.session.invalidRegistration = true;
+            req.session.message = "This user name is no longer available. Please choose another one.";
+            res.redirect('/');
+        }
+        else if(result === enums.RegistrationResults.EmailInUse){
+            req.session.invalidRegistration = true;
+            req.session.message = "There is already an account associated with this email.";
+            res.redirect('/');
+        }
+        else
+        {
+            res.send(message);
+        }
+    });
 });
 
 router.get("/new-account", (req, res, next) => {

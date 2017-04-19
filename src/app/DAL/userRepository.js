@@ -13,3 +13,25 @@ module.exports.getUserIdBy = (userName, password) => {
         });
     });
 };
+
+module.exports.isUserNameInUse = (userName) => {
+    return new Promise((resolve, reject) => {
+        if(userName === 'test'){
+            resolve(true);
+        }
+        else{
+            resolve(false);
+        }
+    });
+};
+
+module.exports.isEmailInUse = (email) => {
+    return new Promise((resolve, reject) => {
+        if(email === 'test'){
+            resolve(true);
+        }
+        else{
+            resolve(false);
+        }
+    });
+};
