@@ -26,7 +26,7 @@ router.post("/register", (req, res, next) => {
         }
         else
         {
-            res.send(message);
+            throw new Error("Undefined result from registration.");
         }
     });
 });
@@ -45,16 +45,15 @@ router.post("/authenticate", (req, res, next) => {
     let redirectTo = req.session.redirectTo;
     delete req.session.redirectTo;
 
-    userBl.areCredentialsValid(user, pwd).then(result => {
-        if(result){
-            req.session.userId = result;
-            req.session.userName = user;
-        }
-        else{
-            req.session.failedAuthentication = true;
-        }
+    userBl.areCredentialsValid(user, pwd).then(userId => {
+        req.session.userId = userId;
+        req.session.userName = user;
         
         res.redirect(redirectTo ? redirectTo : '/');
+    }, err => {
+        req.session.failedAuthentication = true;
+        req.session.authenticationMessage = err;
+        res.redirect('/');
     });
 });
 
@@ -78,9 +77,13 @@ router.get("/", (req, res, next) => {
     else
     {
         let failedAuthentication = req.session.failedAuthentication;
+        let authenticationMessage = req.session.authenticationMessage;
         delete req.session.failedAuthentication;
+        delete req.session.authenticationMessage;
+
         res.render("login", { 
             failedAuthMessageClass: failedAuthentication ? 'show' : 'hide',
+            failedAuthenticationMessage: authenticationMessage,
             failedRegistrationMessageClass: 'hide'
         });
     }
