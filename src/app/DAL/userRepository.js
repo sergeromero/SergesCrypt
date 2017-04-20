@@ -58,4 +58,4 @@ module.exports.registerUser = (userName, email, password) => {
     fields.push({key: "Password", value: password});
 
     return context.insert("Users", fields);
-}
+};
