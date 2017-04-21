@@ -15,8 +15,30 @@ html{
     height: 100%;
 }
 
+header{
+   overflow: auto;
+   background-image: url('/img/header.jpg'); 
+   background-repeat:no-repeat; 
+   background-size:cover;
+   border-bottom:2px solid white;
+   margin: 0px;
+}
+
 .general-container{
   background-image: url('/img/home.jpg');
+}
+
+.gameName{
+  font-family: Papyrus, fantasy;
+  font-weight: bolder;
+  font-size: 2em;
+  text-shadow: 3px 3px 5px rgba(255, 255, 216, 0.6);
+}
+
+.header-account-block{
+  float: right;
+  color: white;
+  margin-right: 2em;
 }
 
 body {
@@ -28,23 +50,17 @@ body {
   height: 100%;
 }
 
-h1 {  
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+h2 {
   color: lightyellow;
   text-align: center;
   font-family: fantasy;
   text-shadow: 3px 3px 5px rgba(255, 255, 216, 0.6);
-  border-bottom:4px solid white;
-  box-shadow:0 5px 10px rgba(0, 0, 0, 0.5);
-  margin: 0 -20px;
+  margin: 0;
   padding:0.5em 0;
 }
 
 #views {
-  padding: 2em 1em 1em;
+  padding: 1em;
 }
 
 #player, 
@@ -83,6 +99,7 @@ h3 {
   padding: 1em 2em 0.6em;
   font-family: fantasy;
   border-bottom: 1px solid white;
+  color: lightyellow;
 }
 
 ol {
@@ -198,4 +215,9 @@ button:active{
 .separator{
   margin-top: 1em;
   margin-bottom: 1em;
+}
+
+.selected-adventure-description{
+  margin: 10px; 
+  text-align: left;
 }

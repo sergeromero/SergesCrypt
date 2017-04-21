@@ -11,6 +11,7 @@ var theCrypt;
                     var selectedAdventureDiv = document.getElementById("selected-adventure");
                     var newAdventureTemplate = document.getElementById("newAdventureTemplate").innerHTML;
 
+                    selectedAdventureDiv.style.display = "inline-block";
                     selectedAdventureDiv.innerHTML = Handlebars.compile(newAdventureTemplate)(adventureDetails);
 
                     var btn = document.getElementById('btnCommand');

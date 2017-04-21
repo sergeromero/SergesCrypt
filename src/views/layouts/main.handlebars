@@ -55,7 +55,7 @@
         <script type="text/x-template" id="newAdventureTemplate">
             <input type="hidden" id="adventureId" name="adventureId" value="\{{adventureDetails.AdventureId}}">
             <h3>You have chosen \{{adventureDetails.Title}}</h3>
-            <p>\{{adventureDetails.Description}}</p>
+            <p class="selected-adventure-description">\{{adventureDetails.Description}}</p>
             <p><img src="/img/\{{adventureDetails.BackgroundFile}}.jpg" alt="\{{adventureDetails.Title}} Picture"></p>
             <br>
             <div id="controls">
@@ -64,6 +64,13 @@
         </script>
     </head>
     <body>
+        <header>
+            <div class="gameName">The Crypt</div>
+            <div class="header-account-block">
+                <span>user account</span>&nbsp;
+                <span>logout</span>
+            </div>
+        </header>
         {{{body}}}
     </body>
 </html>
